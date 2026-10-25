@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="김민상 MinSang Kim, 영남대학교 로봇공학과. 모방학습 자율주행, 그리퍼, 무한궤도 로봇, 휴머노이드 프로젝트 포트폴리오.">
+<title>MinSang Kim · Robotics Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@700;900&display=swap">
+<style>
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* Layout: 참고 사이트 골격(배너 → 메뉴 바 → 페이지) + deckgen base 색·장 머리·핵심 한 문장 띠. 홈 = 사람, 하위 페이지 = 근거 */
+:root{
+  --navy:#1A2A5E; --blue:#0062B8; --ink:#2B2F36; --muted:#667085; --line:#DCE1E8;
+  --tint:#EEF3FA; --band:#F6F8FB; --bg:#FFFFFF; --page:#F1F3F6; --surface:#FFFFFF; --red:#C8102E;
+  --pending-bg:#FFF4D6; --pending-fg:#7A5300; --on-navy:#FFFFFF;
+  --sans:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+  --serif:"Noto Serif KR","Batang",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --navy:#C9D6FF; --blue:#6CB4FF; --ink:#E3E7EE; --muted:#9AA4B5; --line:#2C3547;
+  --tint:#18223A; --band:#141C2E; --bg:#0E1424; --page:#0B1120; --surface:#121A2C; --red:#FF7A8A;
+  --pending-bg:#3A2E10; --pending-fg:#FFD98A; --on-navy:#0E1424; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --navy:#C9D6FF; --blue:#6CB4FF; --ink:#E3E7EE; --muted:#9AA4B5; --line:#2C3547;
+  --tint:#18223A; --band:#141C2E; --bg:#0E1424; --page:#0B1120; --surface:#121A2C; --red:#FF7A8A;
+  --pending-bg:#3A2E10; --pending-fg:#FFD98A; --on-navy:#0E1424; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p{margin:0}
+
+/* banner */
+.banner{position:relative;margin-top:16px;border-radius:6px 6px 0 0;overflow:hidden;
+  background:#3a4250 url("media/banner.jpg") center 55%/cover no-repeat;min-height:220px;display:flex;align-items:flex-end}
+.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,18,40,.72) 0%,rgba(10,18,40,.35) 55%,rgba(10,18,40,0) 100%)}
+.banner .id{position:relative;padding:28px 32px}
+.banner h1{font-family:var(--serif);font-weight:900;font-size:clamp(34px,6vw,56px);color:#fff;line-height:1.1;letter-spacing:-.01em}
+.banner p{color:#E8EEF8;font-size:clamp(17px,2.4vw,22px);margin-top:8px;font-weight:500}
+
+/* nav */
+nav.menu{background:var(--surface);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;position:relative;z-index:5}
+nav.menu > a, nav.menu .drop > button{font:inherit;font-size:17px;color:var(--ink);text-decoration:none;padding:16px 22px;
+  background:none;border:0;cursor:pointer;display:flex;align-items:center;gap:6px}
+nav.menu > a[aria-current="page"], nav.menu .drop.active > button{color:var(--blue);background:var(--tint)}
+nav.menu > a:hover, nav.menu .drop > button:hover{color:var(--blue)}
+.drop{position:relative}
+.drop > button svg{width:10px;height:10px}
+.drop ul{list-style:none;margin:0;padding:6px 0;position:absolute;left:0;top:100%;min-width:250px;background:var(--surface);
+  border:1px solid var(--line);box-shadow:0 8px 24px rgba(16,24,48,.12)}
+.drop ul a{display:block;padding:12px 20px;color:var(--ink);text-decoration:none;font-size:16px}
+.drop ul a small{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+.drop ul a:hover,.drop ul a[aria-current="page"]{background:var(--tint);color:var(--blue)}
+@media (max-width:560px){nav.menu > a, nav.menu .drop > button{padding:12px 14px;font-size:16px}.drop ul{position:static;box-shadow:none;border:0;border-top:1px solid var(--line);width:100vw;max-width:calc(100vw - 32px)}}
+
+main{background:var(--bg);padding-block:32px 48px;padding-inline:clamp(16px,3vw,32px);border-radius:0 0 6px 6px}
+.view{display:grid;gap:28px}
+
+/* home */
+.home{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:stretch}
+@media (max-width:820px){.home{grid-template-columns:1fr}}
+.carousel{background:var(--band);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.slides{position:relative;aspect-ratio:4/5;max-width:100%;background:var(--tint)}
+@media (max-width:820px){.slides{aspect-ratio:4/3}}
+.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+.slides img.on{opacity:1}
+.slides .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 16px 12px;color:#fff;font-size:14px;
+  background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;cursor:pointer;
+  background:rgba(26,42,94,.55);color:#fff;font-size:22px;display:grid;place-items:center}
+.arrow.prev{left:0}.arrow.next{right:0}
+.dots{display:flex;justify-content:center;gap:12px;padding:14px}
+.dots button{width:12px;height:12px;border-radius:50%;border:0;background:var(--muted);cursor:pointer;padding:0}
+.dots button[aria-current="true"]{background:var(--blue)}
+.about{background:var(--band);border-radius:4px;padding:clamp(20px,4vw,44px);display:grid;align-content:center;gap:18px;text-align:center}
+.about h2{font-size:30px;font-weight:800;color:var(--navy)}
+.about p{font-size:18px;max-width:52ch;margin:0 auto}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.tiles{grid-template-columns:1fr}}
+.tile{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.tile img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover}
+.tile div{padding:12px 14px}
+.tile b{display:block;color:var(--navy);font-size:16px}
+.tile span{font-size:14px;color:var(--muted)}
+.tile:hover b{color:var(--blue)}
+.sect-h{font-size:15px;font-weight:700;color:var(--blue)}
+
+/* project page */
+.cat{font-size:15px;font-weight:700;color:var(--blue)}
+.ttl{font-size:clamp(26px,3.6vw,34px);font-weight:800;color:var(--navy);margin-top:4px;padding-bottom:12px;border-bottom:2px solid var(--navy)}
+.meta{font-size:15px;color:var(--muted);margin-top:10px}
+.story{display:grid;gap:12px;max-width:64ch}
+.story-hook{font-size:22px;font-weight:800;color:var(--navy);line-height:1.5}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.pair{grid-template-columns:1fr}}
+figure{margin:0;min-width:0}
+video,img.fig{display:block;width:100%;max-width:100%;height:auto;border-radius:4px;background:var(--tint)}
+figcaption{font-size:15px;margin-top:8px;color:var(--muted)}
+figcaption b{color:var(--ink)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font:inherit;font-size:15px;font-weight:700;padding:8px 14px;border-radius:4px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 20px;font-size:15px}
+.legend b{color:var(--navy)}
+.csr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.csr{grid-template-columns:1fr}}
+.col h3{font-size:17px;font-weight:800;color:var(--navy);background:var(--tint);padding:8px 12px;border-radius:4px}
+.col ul{margin:12px 0 0;padding-left:20px;display:grid;gap:10px}
+.col li b{color:var(--navy)}
+.col.res li b{color:var(--red)}
+.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.steps{grid-template-columns:1fr}}
+.steps li{counter-increment:st;background:var(--band);border-top:3px solid var(--blue);padding:12px 14px;font-size:15px}
+.steps li b{display:block;color:var(--navy);font-size:16px}
+.steps li b::before{content:counter(st) ". ";color:var(--blue)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.who{grid-template-columns:1fr}}
+.who div{background:var(--band);padding:12px 14px;border-radius:4px;font-size:15px}
+.who b{display:block;color:var(--navy);margin-bottom:4px}
+.core{background:var(--band);border-left:6px solid var(--blue);padding:16px 20px;font-size:20px;font-weight:700;color:var(--navy);line-height:1.5}
+.pending{background:var(--pending-bg);color:var(--pending-fg);font-weight:700;padding:0 6px;border-radius:4px;white-space:nowrap}
+.dl{display:grid;gap:14px;margin:0}
+.dl dt{font-weight:800;color:var(--navy);font-size:15px}
+.dl dd{margin:2px 0 0}
+.bridge{background:var(--band);padding:16px 18px;border-radius:4px}
+.bridge b{color:var(--navy)}
+
+/* cv / contact */
+.cv{display:grid;gap:22px;max-width:820px}
+.cv h3{font-size:18px;color:var(--navy);border-bottom:1px solid var(--line);padding-bottom:6px}
+.cv .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px}
+.cv .row b{color:var(--ink)}
+.cv ul{margin:6px 0 0;padding-left:20px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;background:var(--navy);color:var(--on-navy);padding:10px 16px;border-radius:4px}
+.contact{display:grid;gap:12px;max-width:560px}
+.contact .item{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;background:var(--band);padding:14px 16px;border-radius:4px}
+.contact .item b{color:var(--navy);min-width:80px}
+.contact .item span{user-select:all;overflow-wrap:anywhere}
+.copy{font:inherit;font-size:14px;margin-left:auto;padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;cursor:pointer}
+footer{color:var(--muted);font-size:14px;padding-block:20px 40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+
+/* 영상 틀 고정: 같은 줄의 영상은 같은 비율, 탭 전환 시 높이 고정 */
+figure video{aspect-ratio:16/9;object-fit:cover;background:#0E1424}
+.pair.r43 video{aspect-ratio:4/3}
+video.fit{object-fit:contain}
+#viewer video{aspect-ratio:16/9;object-fit:contain}
+.tile .ph{aspect-ratio:16/10;display:grid;place-content:center;gap:4px;text-align:center;background:var(--navy);color:var(--on-navy);padding:12px}
+.tile .ph strong{font-size:18px;font-weight:800}
+.tile .ph em{font-style:normal;font-size:13px;opacity:.85}
+
+/* project blocks (참고 사이트 구조): 슬라이드 + 글 카드가 좌우로 엇갈림 */
+.hook{font-size:20px;font-weight:800;color:var(--navy);margin-top:14px;max-width:60ch}
+.block{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.block.rev .car{order:2}
+.block.solo{grid-template-columns:minmax(0,1fr)}
+@media (max-width:820px){.block{grid-template-columns:1fr}.block.rev .car{order:0}}
+.txt{display:grid;gap:14px;min-width:0}
+.btitle{background:var(--band);padding:22px 20px;text-align:center;font-size:22px;font-weight:700;color:var(--navy)}
+.card{background:var(--band);padding:22px 24px;display:grid;gap:14px;font-size:16px}
+.card b{color:var(--navy)}
+.card .skills{color:var(--muted)}
+.contrib{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.contrib b{color:var(--navy);margin-right:8px}
+.car{position:relative;background:var(--band);min-width:0}
+.car .stage{position:relative;aspect-ratio:16/9;background:#0E1424;overflow:hidden}
+.car.r43 .stage{aspect-ratio:4/3}
+.car figure{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;transition:opacity .3s}
+.car figure.on{opacity:1;visibility:visible}
+.car figure video,.car figure img{width:100%;height:100%;max-width:100%;object-fit:cover;aspect-ratio:auto;border-radius:0;background:#0E1424}
+.car figure .fit{object-fit:contain}
+.car .ccap{font-size:14px;color:var(--ink);padding:10px 14px 0;min-height:2.6em}
+.car .arrow{z-index:2}
+.car .tools{position:absolute;top:10px;right:10px;z-index:2;display:flex;gap:6px}
+.car .tools button{width:36px;height:36px;border:0;border-radius:4px;background:rgba(14,20,36,.6);color:#fff;cursor:pointer;display:grid;place-items:center}
+.car .tools svg{width:18px;height:18px}
+.car .dots{padding:10px 14px 16px}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(6,10,20,.92);display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb .bar{display:flex;justify-content:flex-end}
+.lb .bar button,.lb .nav button{font:inherit;color:#fff;background:rgba(255,255,255,.14);border:0;border-radius:4px;padding:8px 14px;cursor:pointer}
+.lb .body{display:grid;place-items:center;min-height:0}
+.lb .body video,.lb .body img{max-width:100%;max-height:78vh;width:auto;height:auto;border-radius:4px;background:#000;aspect-ratio:auto}
+.lb .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E8EEF8;font-size:15px}
+@media (prefers-reduced-motion:reduce){.slides img{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="banner">
+    <div class="id">
+      <h1>김민상 MinSang Kim</h1>
+      <p>Undergraduate Robotics Engineer</p>
+    </div>
+  </header>
+
+  <nav class="menu" aria-label="주 메뉴">
+    <a href="#home" data-v="home">Home</a>
+    <div class="drop" id="eng">
+      <button type="button" aria-expanded="false" aria-controls="eng-list">Engineering
+        <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <ul id="eng-list" hidden>
+        <li><a href="#humanoid" data-v="humanoid">Humanoid AI<small>정부과제 · 진행 중</small></a></li>
+        <li><a href="#driving" data-v="driving">Autonomous Driving<small>IROC 2026 2위 · SKYNET</small></a></li>
+        <li><a href="#gripper" data-v="gripper">Robotic Gripper<small>Physical AI Gripper Challenge 2026</small></a></li>
+        <li><a href="#mobile" data-v="mobile">Mobile Robot<small>경남 자율로봇 경진대회 2025</small></a></li>
+      </ul>
+    </div>
+    <a href="#cv" data-v="cv">CV</a>
+    <a href="#contact" data-v="contact">Contact</a>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section class="view" id="v-home" data-view="home" aria-label="Home">
+      <div class="home">
+        <div class="carousel" aria-roledescription="carousel" aria-label="프로젝트 사진">
+          <div class="slides" id="slides">
+            <img class="on" src="media/c_iroc.jpg" alt="흰 판 사이 3차선을 달리는 자율주행 RC카 SKYNET">
+            <img src="media/c_sline.jpg" alt="종이컵으로 만든 S자 통로를 지나는 RC카" loading="lazy">
+            <img src="media/c_gripper.jpg" alt="1kg 원통형 캔을 집는 랙-피니언 그리퍼" loading="lazy">
+            <img src="media/c_battle.jpg" alt="배틀럼블 경기장의 무한궤도 로봇" loading="lazy">
+            <div class="cap" id="cap" aria-live="polite">IROC 2026, 3차선 장애물 구간</div>
+            <button class="arrow prev" type="button" aria-label="이전 사진">‹</button>
+            <button class="arrow next" type="button" aria-label="다음 사진">›</button>
+          </div>
+          <div class="dots" id="dots"></div>
+        </div>
+        <div class="about">
+          <h2>About Me</h2>
+          <p>안녕하세요! 영남대학교 로봇공학과에서 공부하고 있는 김민상입니다.</p>
+          <p>시간이 날 때면 곡을 씁니다. 곡이 비어 들릴 때 악기를 하나 더 얹을지, 이미 있는 소리를 다듬을지 오래 고민하는 편입니다.</p>
+          <p>로봇을 만들 때도 같은 고민을 합니다. 센서를 더 달기 전에, 지금 들어오는 데이터가 무엇을 말하고 있는지부터 들여다봅니다.</p>        </div>
+      </div>
+      <div class="sect-h">Engineering</div>
+      <div class="tiles">
+        <a class="tile" href="#humanoid" data-v="humanoid"><span class="ph" aria-hidden="true"><strong>Humanoid AI</strong><em>진행 중</em></span><div><b>Humanoid AI</b><span>sim-to-real, 협업 안전 · 진행 중</span></div></a>
+        <a class="tile" href="#driving" data-v="driving"><img src="media/iroc_stop.jpg" alt="" loading="lazy"><div><b>Autonomous Driving</b><span>IROC 2026 2위 · 모방학습 RC카</span></div></a>
+        <a class="tile" href="#gripper" data-v="gripper"><img src="media/gr_sponge.jpg" alt="" loading="lazy"><div><b>Robotic Gripper</b><span>Physical AI Gripper Challenge 은상</span></div></a>
+        <a class="tile" href="#mobile" data-v="mobile"><img src="media/gn_battle.jpg" alt="" loading="lazy"><div><b>Mobile Robot</b><span>경남 자율로봇 경진대회 최우수상</span></div></a>
+      </div>
+    </section>
+
+    <!-- HUMANOID -->
+    <section class="view" id="v-humanoid" data-view="humanoid" hidden aria-labelledby="h-t">
+      <div><div class="cat">Government-funded R&amp;D · 진행 중</div><h2 class="ttl" id="h-t">Humanoid AI</h2></div>
+      <div class="block solo">
+        <div class="txt">
+          <h3 class="btitle">제조 휴머노이드 핵심 AI</h3>
+          <div class="card">
+            <p><b>도전 :</b> 제조 현장에서 사람과 함께 일하는 휴머노이드의 핵심 AI 개발</p>
+            <p>과학기술정보통신부·IITP AI Star Fellowship(지역 산학 트랙) 과제에서 김성호 교수님 연구실과 함께, 시뮬레이션에서 학습한 동작을 실제 로봇으로 옮기는 일(sim-to-real)과 사람 곁에서 일하는 로봇의 안전을 맡고 있습니다.</p>
+            <p>IROC에서 데이터상으로 맞아 보이던 모델이 실제 트랙에서는 다르게 움직였던 경험이, 지금은 휴머노이드에서 같은 질문으로 이어지고 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DRIVING -->
+    <section class="view" id="v-driving" data-view="driving" hidden aria-labelledby="d-t">
+      <div><div class="cat">2026 IROC 국제로봇올림피아드 · 2위</div><h2 class="ttl" id="d-t">Autonomous Driving</h2>
+      <p class="hook">모델은 앞을 보고 멈춘 게 아니었습니다. 직전 스로틀이 0이라서 멈췄습니다.</p></div>
+
+      <div class="block">
+        <div class="car" aria-roledescription="carousel" aria-label="SKYNET 주행 영상">
+          <figure data-cap="일반 코스: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/iroc_stop.mp4" poster="media/iroc_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="3차선 코스: 같은 흰 판을 피해서 통과"><video src="media/iroc_avoid.mp4" poster="media/iroc_avoid.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="플래너 뷰어 + 실제 주행: 일반 코스"><video class="fit" src="media/view_stop.mp4" poster="media/view_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="플래너 뷰어 + 실제 주행: 3차선에서 종이컵 S자까지"><video class="fit" src="media/view_avoid_sline.mp4" poster="media/view_avoid_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="트랙 전경"><video src="media/iroc_real.mp4" poster="media/iroc_real.jpg" muted loop playsinline preload="metadata"></video></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">SKYNET, 같은 장애물 앞의 다른 판단</h3>
+          <div class="card">
+            <p><b>도전 :</b> 같은 장애물을 보고도 코스에 따라 멈추거나 피하는 자율주행 RC카</p>
+            <p>이를 위해 오픈소스 모방학습 플래너(e2e-planner)를 엔코더 없는 JetRacer Pro에 올리고, 카메라 입력에 5섹터 LiDAR를 더했습니다. 제가 직접 운전한 주행 데이터를 코스별로 쌓아, 하나의 모델이 코스마다 다른 판단을 배우게 했습니다.</p>
+            <p><b>결과 :</b> IROC 2026 2위</p>
+            <p class="skills"><b>Skills :</b> PyTorch, Behavior Cloning, Jetson Orin Nano, Intel RealSense, 2D LiDAR, Python</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block rev">
+        <div class="car" aria-roledescription="carousel" aria-label="데이터와 센서 자료">
+          <figure data-cap="라이다 5섹터: 정면 ±10°, 좌우 10~30°, 30~60° 구간별 최소 거리"><video class="fit" src="media/iroc_lidar.mp4" poster="media/iroc_lidar.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="종이컵 S자 통로: 차선이 거의 보이지 않는 구간"><video src="media/iroc_sline.mp4" poster="media/iroc_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="직접 만든 분석 도구로 본 원본 데이터 8,517프레임"><img class="fit" src="media/data_profile.png" alt="코스 5종 원본 데이터의 조향 분포, 라이다 섹터 거리, 차선 채움률, 구성 비율" loading="lazy"></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">한 번 멈추면 다시 출발하지 않는 차</h3>
+          <div class="card">
+            <p><b>도전 :</b> 학습 지표는 정상인데, 실제 트랙에서 한 번 멈추면 다시 출발하지 않는 문제</p>
+            <p>이를 위해 모델 구조는 그대로 두고, 데이터가 모델에게 무엇을 가르치고 있는지부터 다시 봤습니다. 정지 라벨을 다시 정의해 짧은 정지 72구간을 주행으로 바꾸고, 스로틀 라벨을 모터가 움직이는 범위로 고정했습니다. 검증은 코스별 주행에서 통합 데이터, 주행 중 시나리오 전환 순서로 넓혔습니다.</p>
+            <p><b>결과 :</b> 대회장에서 재학습 없이 게인 하나로 속도 조정</p>
+            <p class="skills"><b>Skills :</b> 데이터 전처리·증강, pandas, 분석 도구 제작(matplotlib), OpenCV HSV 전처리</p>
+          </div>
+        </div>
+      </div>
+      <p class="contrib"><b>기여 구분</b> 원본: e2e-planner(카메라 기반 모방학습 플래너) · 팀: 정지선 인식 기반 코스 전환 · 본인: 데이터 수집·전처리·증강, LiDAR 확장, HSV 입력 보정, 분석 도구</p>
+    </section>
+
+    <!-- GRIPPER -->
+    <section class="view" id="v-gripper" data-view="gripper" hidden aria-labelledby="g-t">
+      <div><div class="cat">Physical AI Gripper Challenge · 은상</div><h2 class="ttl" id="g-t">Robotic Gripper</h2></div>
+      <div class="block">
+        <div class="car r43" aria-roledescription="carousel" aria-label="그리퍼 파지 영상">
+          <figure data-cap="강체: 1kg 원통형 캔 리프팅"><video src="media/gr_1kg.mp4" poster="media/gr_1kg.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="연성체: 스펀지를 변형 없이 파지"><video src="media/gr_sponge.mp4" poster="media/gr_sponge.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="은상 상장"><img class="fit" src="media/gr_physical.jpg" alt="Physical AI 로봇 그리퍼 챌린지 은상 상장" loading="lazy"></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">센서 없이 강체와 연성체를 함께 잡기</h3>
+          <div class="card">
+            <p><b>도전 :</b> Ø100mm·1kg 원기둥과 스펀지 같은 연성체를 외부 촉각 센서 없이 함께 잡기</p>
+            <p>이를 위해 6축 로봇 엔드이펙터용 랙-피니언 그리퍼를 설계하고, 다이나믹셀의 부하와 위치 값만으로 접촉을 감지해 유지 전류로 넘어가게 했습니다.</p>
+            <p><b>결과 :</b> Physical AI Gripper Challenge 은상 · BOM $150 미만</p>
+            <p class="skills"><b>Skills :</b> SOLIDWORKS, Dynamixel, 전류–위치 제어, 3D 프린팅</p>
+          </div>
+        </div>
+      </div>
+      <div class="block rev">
+        <div class="car" aria-roledescription="carousel" aria-label="그리퍼 설계 자료">
+          <figure data-cap="SOLIDWORKS FEA: 랙 응력 집중부"><img class="fit" src="media/gr_fea.jpg" alt="그리퍼 랙의 Von Mises 응력 해석 결과" loading="lazy"></figure>
+          <figure data-cap="랙-피니언 그리퍼 모델링"><img class="fit" src="media/gr_model.jpg" alt="랙-피니언 그리퍼 3D 모델" loading="lazy"></figure>
+          <figure data-cap="다이나믹셀 위치·부하·속도 실시간 로그"><img class="fit" src="media/gr_current.jpg" alt="다이나믹셀 위치 P, 부하 R, 속도 V 로그" loading="lazy"></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">FEA로 다시 그린 랙</h3>
+          <div class="card">
+            <p><b>도전 :</b> 1kg을 들 때 랙에 몰리는 집중 하중</p>
+            <p>이를 위해 SOLIDWORKS FEA로 응력이 몰리는 부분을 찾아 취약부 두께를 3mm 늘렸고, 해석 결과를 실제 구동 시험과 맞춰 봤습니다.</p>
+            <p><b>결과 :</b> 최대 Von Mises 응력 67% 감소</p>
+            <p class="skills"><b>Skills :</b> SOLIDWORKS Simulation, FEA, 3D 프린팅</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE -->
+    <section class="view" id="v-mobile" data-view="mobile" hidden aria-labelledby="m-t">
+      <div><div class="cat">2025 경남 글로벌 혁신 페스타 자율로봇 경진대회 · 국립창원대학교</div><h2 class="ttl" id="m-t">Mobile Robot</h2></div>
+      <div class="block">
+        <div class="car" aria-roledescription="carousel" aria-label="무한궤도 로봇 영상">
+          <figure data-cap="배틀럼블 경기: 그리퍼로 블록을 밀어내는 무한궤도 로봇"><video src="media/gn_battle.mp4" poster="media/gn_battle.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="ROS 2 연동: 수정한 펌웨어로 그리퍼와 주행을 함께 제어"><video src="media/gn_ros2.mp4" poster="media/gn_ros2.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="경기장"><img src="media/c_battle.jpg" alt="배틀럼블 경기장" loading="lazy"></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">미끄러지는 무한궤도 위의 임무 로봇</h3>
+          <div class="card">
+            <p><b>도전 :</b> 무한궤도가 미끄러져도 정확히 달리면서 그리퍼로 임무 수행</p>
+            <p>이를 위해 TurtleBot3 기반 로봇의 펌웨어를 Embedded C와 ROS 2로 다시 짜고, EKF 센서 퓨전으로 슬립 속에서도 위치 추정을 유지했습니다. 쓰지 않던 linear.y 명령에 다이나믹셀 그리퍼를 등록하고 지터 필터를 넣어 토픽 충돌과 모터 손상을 막았습니다.</p>
+            <p><b>결과 :</b> 경상남도지사상 · 제어 루프 50 Hz</p>
+            <p class="skills"><b>Skills :</b> ROS 2, Embedded C, OpenCR, EKF, Dynamixel</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section class="view" id="v-cv" data-view="cv" hidden aria-labelledby="cv-t">
+      <div><div class="cat">CV</div><h2 class="ttl" id="cv-t">이력 요약</h2></div>
+      <div class="cv">
+        <div><h3>Education</h3>
+          <div class="row"><b>영남대학교 로봇공학과</b><span>GPA 3.75 / 4.5</span></div></div>
+        <div><h3>Awards</h3><ul>
+          <li>2026 Physical AI Gripper Challenge 은상</li>
+          <li>2025 경남 글로벌 혁신 페스타 자율로봇 경진대회, 경상남도지사상</li>
+          <li>2025 전공 서포터즈상 3위</li>
+          <li>2026 IROC 국제로봇올림피아드 2위</li></ul></div>
+        <div><h3>Experience</h3><ul>
+          <li><b>제조 휴머노이드 핵심 AI</b> · IITP AI Star Fellowship · sim-to-real, 협업 안전 · 진행 중</li>
+          <li><b>SKYNET 모방학습 자율주행</b> · IROC 2026 2위 · 정지 라벨 재정의, 스로틀 범위 고정, LiDAR 확장</li>
+          <li><b>센서리스 적응형 그리퍼</b> · Subteam Leader · 2025.12–2026.01</li>
+          <li><b>무한궤도 자율로봇</b> · Subteam Member (System Integration &amp; Control) · 2025.09–2025.12</li></ul></div>
+        <div><h3>Skills</h3><ul>
+          <li>SOLIDWORKS, FEA · C, C++, Python, Arduino, ROS 2 · PyTorch · MATLAB · EKF 센서 퓨전, 전류 제어 · 3D 프린팅</li></ul></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="view" id="v-contact" data-view="contact" hidden aria-labelledby="ct-t">
+      <div><div class="cat">Contact</div><h2 class="ttl" id="ct-t">연락처</h2></div>
+      <div class="contact">
+        <div class="item"><b>Email</b><span id="c-mail">kms031103@naver.com</span><button class="copy" type="button" data-copy="c-mail">복사</button></div>
+        <div class="item"><b>Phone</b><span id="c-tel">+82 10-8398-5661</span><button class="copy" type="button" data-copy="c-tel">복사</button></div>
+        <div class="item"><b>LinkedIn</b><a href="https://www.linkedin.com/in/kms2003" target="_blank" rel="noopener">linkedin.com/in/kms2003</a></div>
+        <div class="item"><b>Blog</b><a href="https://blog.naver.com/kms031103" target="_blank" rel="noopener">blog.naver.com/kms031103</a></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>김민상 · 영남대학교 로봇공학과</span><span>kms031103@naver.com</span></footer>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var views = ['home','humanoid','driving','gripper','mobile','cv','contact'];
+  var eng = ['humanoid','driving','gripper','mobile'];
+  var drop = document.getElementById('eng'), dbtn = drop.querySelector('button'), dlist = document.getElementById('eng-list');
+  function closeDrop(){ dlist.hidden = true; dbtn.setAttribute('aria-expanded','false'); }
+  dbtn.addEventListener('click', function(e){ e.stopPropagation(); var open = dlist.hidden; dlist.hidden = !open; dbtn.setAttribute('aria-expanded', open ? 'true':'false'); });
+  document.addEventListener('click', function(e){ if(!drop.contains(e.target)) closeDrop(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeDrop(); dbtn.focus(); } });
+
+  function show(v){
+    if(views.indexOf(v) < 0) v = 'home';
+    document.querySelectorAll('[data-view]').forEach(function(s){
+      var on = s.dataset.view === v; s.hidden = !on;
+      s.querySelectorAll('video').forEach(function(vd){ if(!on){ vd.pause(); } else if(vd.hasAttribute('autoplay') && !reduce){ var p = vd.play(); if(p&&p.catch) p.catch(function(){}); } });
+    });
+    document.querySelectorAll('nav.menu a[data-v]').forEach(function(a){ if(a.dataset.v===v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    drop.classList.toggle('active', eng.indexOf(v) >= 0);
+    closeDrop();
+    document.querySelectorAll('[data-view="' + v + '"] .car').forEach(function(c){ if (c._go) c._go(); });
+  }
+  document.querySelectorAll('a[data-v]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); show(a.dataset.v); try{ history.replaceState(null,'','#'+a.dataset.v); }catch(_){} window.scrollTo(0,0); });
+  });
+  show((location.hash||'').replace('#',''));
+
+  if (reduce) document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); v.setAttribute('controls',''); });
+
+  // carousel
+  var imgs = document.querySelectorAll('#slides img'), dots = document.getElementById('dots'), cap = document.getElementById('cap');
+  var caps = ['IROC 2026, 3차선 장애물 구간','IROC 2026, 종이컵 S자 통로','Physical AI Gripper, 1kg 캔 파지','경남 자율로봇, 배틀럼블 경기장'];
+  var i = 0, timer = null;
+  imgs.forEach(function(_, k){ var b = document.createElement('button'); b.type='button'; b.setAttribute('aria-label', (k+1)+'번째 사진'); b.addEventListener('click', function(){ go(k); restart(); }); dots.appendChild(b); });
+  function go(k){ i = (k + imgs.length) % imgs.length; imgs.forEach(function(im, n){ im.classList.toggle('on', n===i); }); dots.querySelectorAll('button').forEach(function(b,n){ b.setAttribute('aria-current', n===i ? 'true':'false'); }); cap.textContent = caps[i]; }
+  function restart(){ if(timer) clearInterval(timer); if(!reduce) timer = setInterval(function(){ go(i+1); }, 5000); }
+  document.querySelector('.arrow.prev').addEventListener('click', function(){ go(i-1); restart(); });
+  document.querySelector('.arrow.next').addEventListener('click', function(){ go(i+1); restart(); });
+  go(0); restart();
+
+  // viewer tabs
+  var tabs = document.querySelectorAll('.tabs [role="tab"]'), vid = document.getElementById('viewer-video'), vcap = document.getElementById('viewer-cap');
+  tabs.forEach(function(t){ t.addEventListener('click', function(){
+    tabs.forEach(function(o){ o.setAttribute('aria-selected', o===t ? 'true':'false'); });
+    vid.poster = t.dataset.poster; vid.src = t.dataset.src;
+    vcap.textContent = t.dataset.cap;
+    var p = vid.play(); if(p&&p.catch) p.catch(function(){});
+  }); });
+
+
+  // project carousels + lightbox
+  var ICON_EXP = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8V3h5M17 8V3h-5M3 12v5h5M17 12v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+  var lb = document.createElement('div'); lb.className = 'lb'; lb.hidden = true;
+  lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', '크게 보기');
+  lb.innerHTML = '<div class="bar"><button type="button" data-a="close">닫기</button></div><div class="body"></div><div class="nav"><button type="button" data-a="prev">이전</button><span class="lcap"></span><button type="button" data-a="next">다음</button></div>';
+  document.body.appendChild(lb);
+  var lbState = null;
+  function lbShow(){
+    var f = lbState.items[lbState.i], m = f.firstElementChild.cloneNode(true);
+    m.removeAttribute('class');
+    if (m.tagName === 'VIDEO') { m.controls = true; m.muted = true; m.loop = true; }
+    var body = lb.querySelector('.body'); body.innerHTML = ''; body.appendChild(m);
+    lb.querySelector('.lcap').textContent = f.dataset.cap + '  (' + (lbState.i + 1) + '/' + lbState.items.length + ')';
+    if (m.tagName === 'VIDEO') { var p = m.play(); if (p && p.catch) p.catch(function(){}); }
+  }
+  function lbOpen(items, i, opener){ lbState = {items: items, i: i, opener: opener}; lb.hidden = false; lbShow(); lb.querySelector('[data-a="close"]').focus(); }
+  function lbClose(){ lb.hidden = true; lb.querySelector('.body').innerHTML = ''; if (lbState && lbState.opener) lbState.opener.focus(); }
+  lb.addEventListener('click', function(e){
+    var a = e.target.dataset && e.target.dataset.a;
+    if (e.target === lb || a === 'close') lbClose();
+    else if (a === 'prev') { lbState.i = (lbState.i - 1 + lbState.items.length) % lbState.items.length; lbShow(); }
+    else if (a === 'next') { lbState.i = (lbState.i + 1) % lbState.items.length; lbShow(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (lb.hidden) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft') lb.querySelector('[data-a="prev"]').click();
+    if (e.key === 'ArrowRight') lb.querySelector('[data-a="next"]').click();
+  });
+
+  document.querySelectorAll('.car').forEach(function(car){
+    var items = Array.prototype.filter.call(car.children, function(el){ return el.tagName === 'FIGURE'; });
+    var stage = document.createElement('div'); stage.className = 'stage';
+    items.forEach(function(f){ stage.appendChild(f); });
+    car.appendChild(stage);
+    var tools = document.createElement('div'); tools.className = 'tools';
+    tools.innerHTML = '<button type="button" aria-label="크게 보기">' + ICON_EXP + '</button>';
+    stage.appendChild(tools);
+    var prev = document.createElement('button'); prev.className = 'arrow prev'; prev.type = 'button'; prev.setAttribute('aria-label', '이전'); prev.textContent = '‹';
+    var next = document.createElement('button'); next.className = 'arrow next'; next.type = 'button'; next.setAttribute('aria-label', '다음'); next.textContent = '›';
+    stage.appendChild(prev); stage.appendChild(next);
+    var cap = document.createElement('p'); cap.className = 'ccap'; cap.setAttribute('aria-live', 'polite'); car.appendChild(cap);
+    var dots = document.createElement('div'); dots.className = 'dots'; car.appendChild(dots);
+    var k = 0;
+    items.forEach(function(_, n){ var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', (n + 1) + '번째'); b.addEventListener('click', function(){ go(n); }); dots.appendChild(b); });
+    function go(n){
+      k = (n + items.length) % items.length;
+      var visible = !car.closest('[hidden]');
+      items.forEach(function(f, m){
+        var on = m === k; f.classList.toggle('on', on);
+        var v = f.querySelector('video');
+        if (v) { if (on && visible && !reduce) { var p = v.play(); if (p && p.catch) p.catch(function(){}); } else v.pause(); }
+      });
+      dots.querySelectorAll('button').forEach(function(b, m){ b.setAttribute('aria-current', m === k ? 'true' : 'false'); });
+      cap.textContent = items[k].dataset.cap;
+    }
+    car._go = function(){ go(k); };
+    prev.addEventListener('click', function(){ go(k - 1); });
+    next.addEventListener('click', function(){ go(k + 1); });
+    tools.firstChild.addEventListener('click', function(){ lbOpen(items, k, tools.firstChild); });
+    go(0);
+  });
+
+  // copy
+  document.querySelectorAll('.copy').forEach(function(b){ b.addEventListener('click', function(){
+    var el = document.getElementById(b.dataset.copy), txt = el.textContent;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='선택됨'; }
+    try { navigator.clipboard.writeText(txt).then(function(){ b.textContent='복사됨'; }, sel); } catch(_) { sel(); }
+  }); });
+})();
+</script>
+
+</body>
+</html>
