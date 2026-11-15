@@ -176,7 +176,10 @@ video.fit{object-fit:contain}
 .car figure{position:absolute;inset:0;margin:0;opacity:0;visibility:hidden;transition:opacity .3s}
 .car figure.on{opacity:1;visibility:visible}
 .car figure video,.car figure img{width:100%;height:100%;max-width:100%;object-fit:cover;aspect-ratio:auto;border-radius:0;background:#0E1424}
-.car figure .fit{object-fit:contain}
+.car figure video,.car figure img,.car figure .fit{object-fit:contain}
+.block.wide{grid-template-columns:minmax(0,1fr)}
+.block.wide .car{order:0}
+.block.wide .txt{max-width:820px}
 .car .ccap{font-size:14px;color:var(--ink);padding:10px 14px 0;min-height:2.6em}
 .car .arrow{z-index:2}
 .car .tools{position:absolute;top:10px;right:10px;z-index:2;display:flex;gap:6px}
@@ -287,7 +290,7 @@ video.fit{object-fit:contain}
         </div>
       </div>
 
-      <div class="block rev">
+      <div class="block wide rev">
         <div class="car" aria-roledescription="carousel" aria-label="시스템 구조도">
           <figure data-cap="시스템 구조: Jetson에서 인식 → 플래너 → 차량, 데스크톱에서 수집 → 증강 → 학습 → 평가"><img class="fit" src="media/iroc_arch.svg" alt="센싱, 인식, 플래너, 차량과 오프라인 수집·증강·학습·평가 단계를 보여 주는 시스템 구조도" loading="lazy"></figure>
         </div>
@@ -300,11 +303,10 @@ video.fit{object-fit:contain}
         </div>
       </div>
 
-      <div class="block">
+      <div class="block wide">
         <div class="car" aria-roledescription="carousel" aria-label="데이터 수집 자료">
           <figure data-cap="분석 도구로 본 10월 원본 데이터 8,517프레임(코스 5종)"><img class="fit" src="media/data_profile.png" alt="코스 5종 원본 데이터의 조향 분포, 라이다 섹터 거리, 차선 채움률, 구성 비율" loading="lazy"></figure>
           <figure data-cap="라이다 5섹터: 구간별 최소 거리"><video class="fit" src="media/iroc_lidar.mp4" poster="media/iroc_lidar.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="실험실 수집 코스: 종이컵 S자 통로"><video src="media/iroc_sline.mp4" poster="media/iroc_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
         </div>
         <div class="txt">
           <h3 class="btitle">2. 수집: 3차선과 로터리를 직접 운전해 쌓기</h3>
@@ -316,22 +318,35 @@ video.fit{object-fit:contain}
         </div>
       </div>
 
-      <div class="block rev">
+      <div class="block wide rev">
         <div class="car" aria-roledescription="carousel" aria-label="학습 전 처리와 결과 확인">
           <figure data-cap="스로틀 라벨 처리 전후 비교: 멈춤 위험 34% → 6% (seed 3개, 파일마다 뒤 20% 시험)"><img class="fit" src="media/iroc_throttle.jpg" alt="스로틀 매핑 유무에 따른 멈춤 위험, 정지 성공, 조향 오차와 코스별 멈춤 위험 막대그래프" loading="lazy"></figure>
-          <figure data-cap="플래너 뷰어 + 실험실 주행: 3차선에서 종이컵 S자까지"><video class="fit" src="media/view_avoid_sline.mp4" poster="media/view_avoid_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="실험실: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/iroc_stop.mp4" poster="media/iroc_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
         </div>
         <div class="txt">
           <h3 class="btitle">3. 학습 전 처리: 한 번 멈추면 다시 출발하지 않는 차</h3>
           <div class="card">
             <p>모델은 직전 스로틀을 입력으로 받습니다. 운전 중 잠깐 멈칫한 순간까지 '정지'로 남아 있자, 모델은 앞을 보는 대신 "직전이 0이면 계속 0"을 배웠습니다.</p>
             <p>모델 구조는 그대로 두고 라벨을 고쳤습니다. 0이 20프레임 이상 이어질 때만 정지로 남겨 짧은 정지 62구간을 주행으로 바꾸고, 주행 스로틀은 모터가 실제로 움직이는 0.80~0.85로, 출발은 0.95로 맞췄습니다. 증강은 센서 노이즈·드롭아웃·지터로 8배 늘리되, 방향이 정해진 코스는 좌우 반전에서 뺐습니다.</p>
-            <p><b>결과 확인:</b> 같은 데이터·모델·학습 설정에서 라벨 처리만 바꿔 비교했습니다. 주행해야 할 프레임에서 멈춤 값을 내는 비율이 34%에서 6%로 줄었고, 조향 오차 변화는 +0.005에 그쳤습니다. 대신 정지 성공률이 99%에서 72%로 떨어졌는데, 떨어진 것은 전부 S자 코스 끝의 정지 71프레임이었습니다. 그 뒤 코스별 단독 주행 → 통합 데이터 → 주행 중 코스 전환 순서로 실차에서 확인했습니다.</p>
+            <p><b>결과 확인:</b> 같은 데이터·모델·학습 설정에서 라벨 처리만 바꿔 비교했습니다. 주행해야 할 프레임에서 멈춤 값을 내는 비율이 34%에서 6%로 줄었고, 조향 오차 변화는 +0.005에 그쳤습니다. 대신 정지 성공률이 99%에서 72%로 떨어졌는데, 떨어진 것은 전부 S자 코스 끝의 정지 71프레임이었습니다.</p>
             <p class="skills"><b>Skills:</b> 데이터 전처리·증강, pandas, 분석 도구 제작(matplotlib), OpenCV HSV 전처리</p>
           </div>
         </div>
       </div>
+      <div class="block">
+        <div class="car" aria-roledescription="carousel" aria-label="테스트 주행 영상">
+          <figure data-cap="테스트: 플래너 뷰어 + 3차선에서 종이컵 S자까지"><video class="fit" src="media/view_avoid_sline.mp4" poster="media/view_avoid_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="테스트: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/iroc_stop.mp4" poster="media/iroc_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="테스트: 종이컵 S자 통로"><video src="media/iroc_sline.mp4" poster="media/iroc_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">4. 테스트: 실차에서 확인하기</h3>
+          <div class="card">
+            <p>학습 결과는 실차에서 세 단계로 넓혀 가며 확인했습니다. 코스별 단독 주행 → 전 코스를 합친 데이터 → 주행 중 코스 전환 순서입니다.</p>
+            <p>플래너 뷰어에 모델이 보는 차선 격자와 출력 조향·스로틀을 함께 띄워, 화면 속 판단과 실제 움직임을 맞춰 봤습니다.</p>
+          </div>
+        </div>
+      </div>
+
       <p class="contrib"><b>기여 구분</b> 원본: 팀원의 e2e-planner(ADS-Skynet) · 팀: 정지선 인식 기반 코스 전환 · 본인: 데이터 수집·전처리·증강, LiDAR 확장, HSV 입력 보정, 분석 도구 · 참고: 대회 코드에서 3차선 구간은 학습 모델 대신 규칙 기반 제어로 주행</p>
     </section>
 
@@ -339,9 +354,10 @@ video.fit{object-fit:contain}
     <section class="view" id="v-gripper" data-view="gripper" hidden aria-labelledby="g-t">
       <div><div class="cat">2025 Physical AI 로봇 그리퍼 챌린지 · 은상(디지털융합대학장상)</div><h2 class="ttl" id="g-t">Robotic Gripper</h2></div>
       <div class="block">
-        <div class="car r43" aria-roledescription="carousel" aria-label="그리퍼 파지 영상">
-          <figure data-cap="강체: 1kg 원통형 캔 리프팅"><video src="media/gr_1kg.mp4" poster="media/gr_1kg.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="연성체: 스펀지를 변형 없이 파지"><video src="media/gr_sponge.mp4" poster="media/gr_sponge.jpg" muted loop playsinline preload="metadata"></video></figure>
+        <div class="car r43" aria-roledescription="carousel" aria-label="그리퍼 대회 영상">
+          <figure data-cap="대회 TASK 2: 원기둥을 집어 옮기기"><video src="media/grc_task2.mp4" poster="media/grc_task2.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="대회 TASK 3: 상자 속 인형 집어 꺼내기"><video src="media/grc_task3.mp4" poster="media/grc_task3.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="대회 TASK 1: 사각뿔 집어 들기 (2배속)"><video src="media/grc_task1.mp4" poster="media/grc_task1.jpg" muted loop playsinline preload="metadata"></video></figure>
           <figure data-cap="은상 상장"><img class="fit" src="media/gr_physical.jpg" alt="Physical AI 로봇 그리퍼 챌린지 은상 상장" loading="lazy"></figure>
         </div>
         <div class="txt">
@@ -354,7 +370,7 @@ video.fit{object-fit:contain}
           </div>
         </div>
       </div>
-      <div class="block rev">
+      <div class="block wide rev">
         <div class="car" aria-roledescription="carousel" aria-label="그리퍼 설계 자료">
           <figure data-cap="SOLIDWORKS FEA: 랙 응력 집중부"><img class="fit" src="media/gr_fea.jpg" alt="그리퍼 랙의 Von Mises 응력 해석 결과" loading="lazy"></figure>
           <figure data-cap="랙-피니언 그리퍼 모델링"><img class="fit" src="media/gr_model.jpg" alt="랙-피니언 그리퍼 3D 모델" loading="lazy"></figure>
@@ -367,6 +383,18 @@ video.fit{object-fit:contain}
             <p>SOLIDWORKS FEA로 응력이 몰리는 부분을 찾아 취약부 두께를 3mm 늘렸고, 해석 결과를 실제 구동 시험과 맞춰 봤습니다.</p>
             <p><b>결과:</b> 최대 Von Mises 응력 67% 감소</p>
             <p class="skills"><b>Skills:</b> SOLIDWORKS Simulation, FEA, 3D 프린팅</p>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="car r43" aria-roledescription="carousel" aria-label="그리퍼 테스트 영상">
+          <figure data-cap="테스트: 1kg 원통형 캔 리프팅"><video src="media/gr_1kg.mp4" poster="media/gr_1kg.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="테스트: 스펀지 파지"><video src="media/gr_sponge.mp4" poster="media/gr_sponge.jpg" muted loop playsinline preload="metadata"></video></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">테스트: 강체와 연성체를 같은 로직으로</h3>
+          <div class="card">
+            <p>대회 전, 같은 제어 로직으로 1kg 원통형 캔(강체)과 스펀지(연성체)를 잡아 봤습니다. 접촉을 감지하면 목표 위치를 현재 위치로 고정하고 유지 전류로 낮춥니다.</p>
           </div>
         </div>
       </div>
@@ -523,6 +551,13 @@ video.fit{object-fit:contain}
     var dots = document.createElement('div'); dots.className = 'dots'; car.appendChild(dots);
     var k = 0;
     items.forEach(function(_, n){ var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', (n + 1) + '번째'); b.addEventListener('click', function(){ go(n); }); dots.appendChild(b); });
+    function fitStage(){
+      var m = items[k].querySelector('img,video'); if (!m) return;
+      var w = m.tagName === 'VIDEO' ? m.videoWidth : m.naturalWidth, h = m.tagName === 'VIDEO' ? m.videoHeight : m.naturalHeight;
+      if (w && h) stage.style.aspectRatio = w + ' / ' + h;
+    }
+    items.forEach(function(f){ var m = f.querySelector('img,video'); if (!m) return;
+      m.addEventListener(m.tagName === 'VIDEO' ? 'loadedmetadata' : 'load', function(){ if (items[k] === f) fitStage(); }); });
     function go(n){
       k = (n + items.length) % items.length;
       var visible = !car.closest('[hidden]');
@@ -533,6 +568,8 @@ video.fit{object-fit:contain}
       });
       dots.querySelectorAll('button').forEach(function(b, m){ b.setAttribute('aria-current', m === k ? 'true' : 'false'); });
       cap.textContent = items[k].dataset.cap;
+      var mm = items[k].querySelector('img'); if (mm) mm.loading = 'eager';
+      fitStage();
     }
     if (items.length < 2) { prev.hidden = true; next.hidden = true; dots.hidden = true; }
     car._go = function(){ go(k); };
