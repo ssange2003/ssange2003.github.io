@@ -553,7 +553,7 @@ video.fit{object-fit:contain}
       var w = m.tagName === 'VIDEO' ? m.videoWidth : m.naturalWidth, h = m.tagName === 'VIDEO' ? m.videoHeight : m.naturalHeight;
       if (!w || !h) return;
       stage.style.aspectRatio = w + ' / ' + h;
-      var maxH = window.innerHeight * 0.72;
+      var maxH = window.innerHeight * 0.36;
       stage.style.maxWidth = Math.round(Math.min(w, maxH * w / h)) + 'px';
     }
     items.forEach(function(f){ var m = f.querySelector('img,video'); if (!m) return;
