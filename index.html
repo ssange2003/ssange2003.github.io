@@ -192,6 +192,10 @@ video.fit{object-fit:contain}
 .dtab td:nth-child(2){text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .dnote{grid-column:1/-1;font-size:14px;color:var(--muted)}
 .block.wide{grid-template-columns:minmax(0,1fr)}
+.block.stack{grid-template-columns:minmax(0,1fr)}
+.card.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px}
+.card.cols .span{grid-column:1/-1;display:grid;gap:14px}
+@media (max-width:720px){.card.cols{grid-template-columns:minmax(0,1fr)}}
 .block.wide .car{order:0}
 .block.wide .txt{max-width:820px}
 .car .ccap{font-size:14px;color:var(--ink);padding:10px 14px 0;min-height:2.6em}
@@ -290,7 +294,7 @@ video.fit{object-fit:contain}
       <div><div class="cat">2026 IRC 국제로봇올림피아드 AI 자율주행 · 2026.08–11</div><h2 class="ttl" id="d-t">Autonomous Driving</h2>
       <p class="hook">같은 장애물 앞에서도 코스에 따라 멈추거나 피하도록, 코스마다 직접 운전해 데이터를 쌓았습니다.</p></div>
 
-      <div class="block">
+      <div class="block stack">
         <div class="car" aria-roledescription="carousel" aria-label="대회장 연습 주행 영상">
           <figure data-cap="대회장 연습 주행: 로터리 — 정지선 앞 접근, 진입, 섬 회전, 출구"><video src="media/prac_rotary.mp4" poster="media/prac_rotary.jpg" muted loop playsinline preload="metadata"></video></figure>
           <figure data-cap="대회장 연습 주행: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/prac_stop.mp4" poster="media/prac_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
@@ -299,13 +303,16 @@ video.fit{object-fit:contain}
         </div>
         <div class="txt">
           <h3 class="btitle">E2E 자율주행: 같은 장애물도 코스마다 다르게 판단</h3>
-          <div class="card">
+          <div class="card cols">
             <div><b>도전:</b><ul>
               <li>엔코더가 없는 저가 모터라 같은 스로틀 값에도 실제 속도가 달라짐</li>
               <li>같은 거리의 장애물이라도 일반 코스에서는 멈추고, 3차선·S자 코스에서는 피해야 함</li></ul></div>
-            <p><b>역할:</b> 데이터 파이프라인·센서 퓨전 (Subteam Member)</p>
-            <p>팀원이 만든 E2E 플래너 오픈소스(ADS-Skynet/e2e-planner)를 엔코더 없는 JetRacer에 올리고, 카메라 차선 특징에 2D LiDAR 5섹터 입력을 더했습니다. 카메라·LiDAR 입력에서 조향과 스로틀까지 한 모델이 정합니다.</p>
-            <div><b>판단:</b>
+            <div><b>결과:</b><ul>
+              <li>대회 코스 전 구간 연속 주행 성공</li>
+              <li>코스별 토큰과 라벨 규칙을 정해 두어, 대회 직전까지 데이터를 더 쌓아도 라벨 기준이 유지됨</li></ul></div>
+            <div class="span"><p><b>역할:</b> 데이터 파이프라인·센서 퓨전 (Subteam Member)</p>
+            <p>팀원이 만든 E2E 플래너 오픈소스(ADS-Skynet/e2e-planner)를 엔코더 없는 JetRacer에 올리고, 카메라 차선 특징에 2D LiDAR 5섹터 입력을 더했습니다. 카메라·LiDAR 입력에서 조향과 스로틀까지 한 모델이 정합니다.</p></div>
+            <div class="span"><b>판단:</b>
               <table class="jt">
                 <thead><tr><th>발견한 문제</th><th>판단</th><th>처리</th></tr></thead>
                 <tbody>
@@ -315,10 +322,7 @@ video.fit{object-fit:contain}
                   <tr><td>대회장에서 연습 때와 속도가 다름</td><td>모델이 아니라 모터 출력의 문제</td><td>재학습 없이 코스별 출력 게인만 조정</td></tr>
                 </tbody>
               </table></div>
-            <div><b>결과:</b><ul>
-              <li>대회 코스 전 구간 연속 주행 성공</li>
-              <li>코스별 토큰과 라벨 규칙을 정해 두어, 대회 직전까지 데이터를 더 쌓아도 라벨 기준이 유지됨</li></ul></div>
-            <p class="skills"><b>Skills:</b> E2E 학습 데이터 설계(Behavior Cloning), 시연 라벨 정제, 2D LiDAR 입력 확장, 코스 조건부 입력(시나리오 토큰), 출력 게인 튜닝, Python</p>
+            <p class="skills span"><b>Skills:</b> E2E 학습 데이터 설계(Behavior Cloning), 시연 라벨 정제, 2D LiDAR 입력 확장, 코스 조건부 입력(시나리오 토큰), 출력 게인 튜닝, Python</p>
           </div>
         </div>
       </div>
@@ -377,11 +381,10 @@ video.fit{object-fit:contain}
       </div>
       <div class="block wide rev">
         <div class="car" aria-roledescription="carousel" aria-label="그리퍼 설계 자료">
-          <figure data-cap="SOLIDWORKS FEA: 랙 응력 집중부"><img class="fit" src="media/gr_fea.jpg" alt="그리퍼 랙의 Von Mises 응력 해석 결과" loading="lazy"></figure>
           <figure data-cap="랙-피니언 그리퍼 모델링"><img class="fit" src="media/gr_model.jpg" alt="랙-피니언 그리퍼 3D 모델" loading="lazy"></figure>
           <figure data-cap="3D 프린팅 실물: 정면, 랙 위에 얹힌 양쪽 조"><img class="fit" src="media/gr_build_front.jpg" alt="3D 프린팅으로 출력해 조립한 랙-피니언 그리퍼 정면" loading="lazy"></figure>
           <figure data-cap="3D 프린팅 실물: 윗면, 피니언과 맞물린 두 랙"><img class="fit" src="media/gr_build_top.jpg" alt="위에서 본 그리퍼 내부: 피니언과 두 랙" loading="lazy"></figure>
-          <figure data-cap="다이나믹셀 위치·부하·속도 실시간 로그"><img class="fit" src="media/gr_current.jpg" alt="다이나믹셀 위치 P, 부하 R, 속도 V 로그" loading="lazy"></figure>
+          <figure data-cap="SOLIDWORKS FEA: 랙 응력 집중부"><img class="fit" src="media/gr_fea.jpg" alt="그리퍼 랙의 Von Mises 응력 해석 결과" loading="lazy"></figure>
         </div>
         <div class="txt">
           <h3 class="btitle">FEA로 다시 그린 랙</h3>
