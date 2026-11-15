@@ -302,11 +302,15 @@ video.fit{object-fit:contain}
         <div class="car" aria-roledescription="carousel" aria-label="데이터 수집 영상">
           <figure data-cap="3차선 수집 코스: 흰 판과 벽 배치를 바꿔 가며 직접 운전"><video src="media/col_lane3.mp4" poster="media/col_lane3.jpg" muted loop playsinline preload="metadata"></video></figure>
           <figure data-cap="로터리 수집 화면: 1.4m 장애물 정지·출발 녹화 중 (LEFT_TURN = 로터리 토큰의 원본 이름, 2배속)"><video src="media/col_rotary.mp4" poster="media/col_rotary.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="일반 코스 수집 화면: 대회장에서 녹화 (토큰 0, normal_rught_left_now.csv, 2배속)"><video src="media/col_normal.mp4" poster="media/col_normal.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="일반 코스 구멍 구간 수집 화면 (토큰 0, normal_hole.csv, 2배속)"><video src="media/col_hole.mp4" poster="media/col_hole.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="일반 코스 빠른 주행·오른쪽 수집 화면 (토큰 0, fast_normal_right.csv, 2배속)"><video src="media/col_fast.mp4" poster="media/col_fast.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="터널 구간 수집 화면: 오른쪽 벽 (PARKING = 터널에 쓴 토큰 5의 원본 이름, tunnel_right_wall.csv, 2배속)"><video src="media/col_tunnel.mp4" poster="media/col_tunnel.jpg" muted loop playsinline preload="metadata"></video></figure>
         </div>
         <div class="txt">
           <h3 class="btitle">데이터 수집: 3차선과 로터리를 어떻게 쌓았나</h3>
           <div class="card">
-            <p>게임패드로 직접 운전하며 웹 뷰어의 녹화(REC) 버튼으로 구간을 잘라 저장했습니다. 한 행은 차선 격자·LiDAR 5섹터·정지선 객체와 그 순간의 조향·스로틀이고, 초당 약 9.3행씩 쌓였습니다. 코스마다 시나리오 토큰을 붙였습니다(로터리 1, 3차선 2).</p>
+            <p>게임패드로 직접 운전하며 웹 뷰어의 녹화(REC) 버튼으로 구간을 잘라 저장했습니다. 한 행은 차선 격자·LiDAR 5섹터·정지선 객체와 그 순간의 조향·스로틀이고, 초당 약 9.3행씩 쌓였습니다. 코스마다 시나리오 토큰을 붙였습니다(일반 0, 로터리 1, 3차선 2, 터널 5).</p>
             <p><b>3차선:</b> 첫 줄 장애물은 항상 오른쪽으로, 둘째 줄은 빈 곳에 따라 ① 작은 좌회전 ② 직진 ③ 큰 좌회전으로 피하는 규칙을 정하고, 벽·기둥 배치를 바꿔 가며 랩을 반복했습니다.</p>
             <p><b>로터리:</b> 오른쪽 선을 따라 도는 세션을 쌓은 뒤 세션별 조향을 다시 봤습니다. 선에 붙어 길게 누른 세션은 하나뿐이었고, 나머지는 회전 중 조향 0 비율이 46~70%로 스틱을 끊어 눌렀습니다. 그래서 선 따라가기 보강과 장애물 정지·출발 데이터를 따로 더했습니다.</p>
           </div>
@@ -314,35 +318,17 @@ video.fit{object-fit:contain}
       </div>
 
       <div class="block wide">
-        <div class="car" aria-roledescription="carousel" aria-label="수집 패턴 그림">
-          <figure data-cap="3차선: 실제로 쌓인 랩 44개를 경우별로 정리 — ① 작은 좌 11 · ② 직진 8 · ③ 큰 좌 16 · 분류 불확실 9"><img class="fit" src="media/dc_lane3.png" alt="3차선 수집 랩을 우회전 뒤 작은 좌회전, 직진, 큰 좌회전, 분류 불확실로 나눈 경로 그림" loading="lazy"></figure>
-          <figure data-cap="로터리: 선을 따라 도는 A와 정면 장애물을 보고 꺾는 B를 섞으면 모델이 둘의 평균을 배움 → 수집을 A로 통일"><img class="fit" src="media/dc_rotary.png" alt="로터리 우회전 수집 방식 A, B와 둘을 섞었을 때 평균 경로를 비교한 그림" loading="lazy"></figure>
+        <div class="car" data-full aria-roledescription="carousel" aria-label="3차선 수집 경로">
+          <figure data-cap="3차선은 이렇게 쌓았습니다: 첫 장애물은 오른쪽으로 피하고, 둘째 줄에서 ① 작은 좌 11랩 · ② 직진 8랩 · ③ 큰 좌 16랩 (분류 불확실 9랩)"><img class="fit" src="media/dc_lane3.png" alt="3차선 수집 랩의 경로: 우회전 뒤 작은 좌회전, 직진, 큰 좌회전" loading="lazy"></figure>
         </div>
       </div>
 
-      <div class="dtab-wrap">
-        <table class="dtab">
-          <caption>3차선 (토큰 2) · 중복 제외 14,665행</caption>
-          <thead><tr><th>배치</th><th>행</th><th>랩</th></tr></thead>
-          <tbody>
-            <tr><td>벽 없음 (세션 3개)</td><td>6,742</td><td>① 11 · ② 8 · ③ 16 · 미분류 9</td></tr>
-            <tr><td>벽 없음 + IMU</td><td>3,290</td><td>15~17</td></tr>
-            <tr><td>왼쪽 벽 1</td><td>1,348</td><td>6~7</td></tr>
-            <tr><td>왼쪽 벽 2</td><td>2,492</td><td>약 11 (되돌아가기 52행 삭제)</td></tr>
-            <tr><td>기둥</td><td>793</td><td>4</td></tr>
-          </tbody>
-        </table>
-        <table class="dtab">
-          <caption>로터리 (토큰 1) · 5,182행</caption>
-          <thead><tr><th>파일</th><th>행</th><th>내용</th></tr></thead>
-          <tbody>
-            <tr><td>회전 세션 5개</td><td>3,509</td><td>1,290 · 500 · 391 · 178 · 1,150행, 오른쪽 선 따라 회전</td></tr>
-            <tr><td>선 따라가기 보강</td><td>1,200</td><td>선에 붙어 도는 장면 추가</td></tr>
-            <tr><td>장애물 정지·출발</td><td>473</td><td>1.4m 앞 장애물에서 정지 → 출발 5회</td></tr>
-          </tbody>
-        </table>
-        <p class="dnote">행 수는 수집 CSV를 직접 센 값, 랩 수는 기록 노트 기준입니다. 세션 4(178행)는 선 대신 정면 물체를 보고 꺾은 세션으로 따로 표시해 두었습니다.</p>
+      <div class="block wide">
+        <div class="car" data-full aria-roledescription="carousel" aria-label="로터리 수집 경로">
+          <figure data-cap="로터리는 이렇게 쌓였습니다: A 오른쪽 선을 보며 코너를 따라 돌기, B 정면 장애물을 보고 늦게 크게 꺾기"><img class="fit" src="media/dc_rotary.png" alt="로터리 우회전 수집 방식 A와 B의 경로" loading="lazy"></figure>
+        </div>
       </div>
+
     </section>
 
     <!-- GRIPPER -->
@@ -553,7 +539,7 @@ video.fit{object-fit:contain}
       var w = m.tagName === 'VIDEO' ? m.videoWidth : m.naturalWidth, h = m.tagName === 'VIDEO' ? m.videoHeight : m.naturalHeight;
       if (!w || !h) return;
       stage.style.aspectRatio = w + ' / ' + h;
-      var maxH = window.innerHeight * 0.36;
+      var maxH = car.hasAttribute('data-full') ? Infinity : window.innerHeight * 0.36;
       stage.style.maxWidth = Math.round(Math.min(w, maxH * w / h)) + 'px';
     }
     items.forEach(function(f){ var m = f.querySelector('img,video'); if (!m) return;
