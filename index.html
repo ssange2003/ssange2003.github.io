@@ -63,15 +63,7 @@ main{background:var(--bg);padding-block:32px 48px;padding-inline:clamp(16px,3vw,
 .view{display:grid;gap:28px}
 
 /* home */
-.home{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:20px;align-items:stretch}
-@media (max-width:820px){.home{grid-template-columns:1fr}}
-.carousel{background:var(--band);border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
-.slides{position:relative;aspect-ratio:4/5;max-width:100%;background:var(--tint)}
-@media (max-width:820px){.slides{aspect-ratio:4/3}}
-.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
-.slides img.on{opacity:1}
-.slides .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 16px 12px;color:#fff;font-size:14px;
-  background:linear-gradient(0deg,rgba(0,0,0,.62),rgba(0,0,0,0))}
+.home{display:grid;grid-template-columns:minmax(0,1fr)}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;cursor:pointer;
   background:rgba(26,42,94,.55);color:#fff;font-size:22px;display:grid;place-items:center}
 .arrow.prev{left:0}.arrow.next{right:0}
@@ -210,7 +202,6 @@ video.fit{object-fit:contain}
 .lb .body{display:grid;place-items:center;min-height:0}
 .lb .body video,.lb .body img{max-width:100%;max-height:78vh;width:auto;height:auto;border-radius:4px;background:#000;aspect-ratio:auto}
 .lb .nav{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#E8EEF8;font-size:15px}
-@media (prefers-reduced-motion:reduce){.slides img{transition:none}}
 </style>
 </head>
 <body>
@@ -229,8 +220,8 @@ video.fit{object-fit:contain}
       <button type="button" aria-expanded="false" aria-controls="eng-list">Engineering
         <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
       <ul id="eng-list" hidden>
-        <li><a href="#driving" data-v="driving">Autonomous Driving<small>E2E 자율주행 · IRC 2026</small></a></li>
         <li><a href="#humanoid" data-v="humanoid">Humanoid AI<small>정부과제 · 진행 중</small></a></li>
+        <li><a href="#driving" data-v="driving">Autonomous Driving<small>E2E 자율주행 · IRC 2026</small></a></li>
         <li><a href="#gripper" data-v="gripper">Robotic Gripper<small>2025 Physical AI 로봇 그리퍼 챌린지 은상</small></a></li>
         <li><a href="#mobile" data-v="mobile">Mobile Robot<small>2025 국립창원대 자율로봇경진대회 최우수상</small></a></li>
       </ul>
@@ -243,32 +234,20 @@ video.fit{object-fit:contain}
     <!-- HOME -->
     <section class="view" id="v-home" data-view="home" aria-label="Home">
       <div class="home">
-        <div class="carousel" aria-roledescription="carousel" aria-label="프로젝트 사진">
-          <div class="slides" id="slides">
-            <img class="on" src="media/prac_lane3.jpg" alt="대회장 3차선 장애물 구간을 달리는 E2E 자율주행 RC카">
-            <img src="media/prac_sline.jpg" alt="대회장 종이컵 S자 통로를 지나는 RC카" style="object-position:72% 50%" loading="lazy">
-            <img src="media/grc_task2.jpg" alt="대회에서 원기둥을 집은 랙-피니언 그리퍼" loading="lazy">
-            <img src="media/c_battle.jpg" alt="배틀럼블 경기장의 무한궤도 로봇" loading="lazy">
-            <div class="cap" id="cap" aria-live="polite">IRC 2026 대회장, 3차선 장애물 구간</div>
-            <button class="arrow prev" type="button" aria-label="이전 사진">‹</button>
-            <button class="arrow next" type="button" aria-label="다음 사진">›</button>
-          </div>
-          <div class="dots" id="dots"></div>
-        </div>
         <div class="about">
           <h2>About Me</h2>
           <p>안녕하세요! 영남대학교 로봇공학과에서 공부하고 있는 김민상입니다.</p>
           <p>취미로 작곡을 합니다. 곡을 풍성하게 만드는 방법이 악기를 더하는 것만은 아닙니다. 이미 있는 소리의 질감을 다듬거나 배치를 바꾸는 것만으로도 곡은 훨씬 꽉 차게 들립니다.</p>
           <p>로봇을 만들 때도 비슷한 고민을 합니다. 새로운 센서를 추가하기 전에, 이미 들어오고 있는 데이터가 무엇을 말하는지부터 살펴봅니다. 때로는 새로운 것을 더하기보다 이미 있는 것을 이해하고 조정하는 편이 더 나은 결과를 만든다고 생각합니다.</p>
           <div class="aph">
-            <figure><img src="media/ab_talk.jpg" width="1600" height="1067" alt="그리퍼 설계를 발표하는 모습" loading="lazy"><figcaption>그리퍼 설계 발표</figcaption></figure>
+            <figure><img src="media/ab_talk.jpg" width="1600" height="1067" alt="그리퍼 설계를 발표하는 모습" loading="lazy"></figure>
           </div>
         </div>
       </div>
       <div class="sect-h">Engineering</div>
       <div class="tiles">
-        <a class="tile" href="#driving" data-v="driving"><img src="media/prac_lane3.jpg" alt="" loading="lazy"><div><b>Autonomous Driving</b><span>E2E 자율주행 · IRC 2026</span></div></a>
         <a class="tile" href="#humanoid" data-v="humanoid"><span class="ph" aria-hidden="true"><strong>Humanoid AI</strong><em>진행 중</em></span><div><b>Humanoid AI</b><span>sim-to-real, 협업 안전</span></div></a>
+        <a class="tile" href="#driving" data-v="driving"><img src="media/prac_lane3.jpg" alt="" loading="lazy"><div><b>Autonomous Driving</b><span>E2E 자율주행 · IRC 2026</span></div></a>
         <a class="tile" href="#gripper" data-v="gripper"><img src="media/grc_task2.jpg" alt="" loading="lazy"><div><b>Robotic Gripper</b><span>2025 Physical AI 로봇 그리퍼 챌린지 은상</span></div></a>
         <a class="tile" href="#mobile" data-v="mobile"><img src="media/gn_battle.jpg" alt="" loading="lazy"><div><b>Mobile Robot</b><span>국립창원대 자율로봇경진대회 최우수상 2관왕</span></div></a>
       </div>
@@ -488,16 +467,6 @@ video.fit{object-fit:contain}
 
   if (reduce) document.querySelectorAll('video[autoplay]').forEach(function(v){ v.removeAttribute('autoplay'); v.pause(); v.setAttribute('controls',''); });
 
-  // carousel
-  var imgs = document.querySelectorAll('#slides img'), dots = document.getElementById('dots'), cap = document.getElementById('cap');
-  var caps = ['IRC 2026 대회장, 3차선 장애물 구간','IRC 2026 대회장, 종이컵 S자 통로','Physical AI 로봇 그리퍼 챌린지, 원기둥 집기','국립창원대 자율로봇경진대회, 배틀럼블 경기장'];
-  var i = 0, timer = null;
-  imgs.forEach(function(_, k){ var b = document.createElement('button'); b.type='button'; b.setAttribute('aria-label', (k+1)+'번째 사진'); b.addEventListener('click', function(){ go(k); restart(); }); dots.appendChild(b); });
-  function go(k){ i = (k + imgs.length) % imgs.length; imgs.forEach(function(im, n){ im.classList.toggle('on', n===i); }); dots.querySelectorAll('button').forEach(function(b,n){ b.setAttribute('aria-current', n===i ? 'true':'false'); }); cap.textContent = caps[i]; }
-  function restart(){ if(timer) clearInterval(timer); if(!reduce) timer = setInterval(function(){ go(i+1); }, 5000); }
-  document.querySelector('.arrow.prev').addEventListener('click', function(){ go(i-1); restart(); });
-  document.querySelector('.arrow.next').addEventListener('click', function(){ go(i+1); restart(); });
-  go(0); restart();
 
   // viewer tabs
   var tabs = document.querySelectorAll('.tabs [role="tab"]'), vid = document.getElementById('viewer-video'), vcap = document.getElementById('viewer-cap');
