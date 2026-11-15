@@ -28,7 +28,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   --tint:#18223A; --band:#141C2E; --bg:#0E1424; --page:#0B1120; --surface:#121A2C; --red:#FF7A8A;
   --pending-bg:#3A2E10; --pending-fg:#FFD98A; --on-navy:#0E1424; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;
+body{background:var(--page);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .wrap{max-width:1120px;margin:0 auto}
 a{color:var(--blue)}
@@ -134,6 +134,8 @@ figcaption b{color:var(--ink)}
 
 /* cv / contact */
 .cv{display:grid;gap:22px;max-width:820px}
+.cvdl{display:inline-block;margin-top:12px;font-size:15px;font-weight:700;color:var(--on-navy);background:var(--navy);padding:8px 14px;border-radius:4px;text-decoration:none}
+.cvdl:hover{background:var(--blue)}
 .cv h3{font-size:18px;color:var(--navy);border-bottom:1px solid var(--line);padding-bottom:6px}
 .cv .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px}
 .cv .row b{color:var(--ink)}
@@ -206,10 +208,10 @@ video.fit{object-fit:contain}
       <button type="button" aria-expanded="false" aria-controls="eng-list">Engineering
         <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
       <ul id="eng-list" hidden>
+        <li><a href="#driving" data-v="driving">Autonomous Driving<small>IRC 2026 AI 자율주행 · SKYNET</small></a></li>
         <li><a href="#humanoid" data-v="humanoid">Humanoid AI<small>정부과제 · 진행 중</small></a></li>
-        <li><a href="#driving" data-v="driving">Autonomous Driving<small>IROC 2026 2위 · SKYNET</small></a></li>
-        <li><a href="#gripper" data-v="gripper">Robotic Gripper<small>Physical AI Gripper Challenge 2026</small></a></li>
-        <li><a href="#mobile" data-v="mobile">Mobile Robot<small>경남 자율로봇 경진대회 2025</small></a></li>
+        <li><a href="#gripper" data-v="gripper">Robotic Gripper<small>2025 Physical AI 로봇 그리퍼 챌린지 은상</small></a></li>
+        <li><a href="#mobile" data-v="mobile">Mobile Robot<small>2025 국립창원대 자율로봇경진대회 최우수상</small></a></li>
       </ul>
     </div>
     <a href="#cv" data-v="cv">CV</a>
@@ -222,11 +224,11 @@ video.fit{object-fit:contain}
       <div class="home">
         <div class="carousel" aria-roledescription="carousel" aria-label="프로젝트 사진">
           <div class="slides" id="slides">
-            <img class="on" src="media/c_iroc.jpg" alt="흰 판 사이 3차선을 달리는 자율주행 RC카 SKYNET">
-            <img src="media/c_sline.jpg" alt="종이컵으로 만든 S자 통로를 지나는 RC카" loading="lazy">
+            <img class="on" src="media/prac_lane3.jpg" alt="대회장 3차선 장애물 구간을 달리는 자율주행 RC카 SKYNET">
+            <img src="media/prac_sline.jpg" alt="대회장 종이컵 S자 통로를 지나는 RC카" style="object-position:72% 50%" loading="lazy">
             <img src="media/c_gripper.jpg" alt="1kg 원통형 캔을 집는 랙-피니언 그리퍼" loading="lazy">
             <img src="media/c_battle.jpg" alt="배틀럼블 경기장의 무한궤도 로봇" loading="lazy">
-            <div class="cap" id="cap" aria-live="polite">IROC 2026, 3차선 장애물 구간</div>
+            <div class="cap" id="cap" aria-live="polite">IRC 2026 대회장, 3차선 장애물 구간</div>
             <button class="arrow prev" type="button" aria-label="이전 사진">‹</button>
             <button class="arrow next" type="button" aria-label="다음 사진">›</button>
           </div>
@@ -235,15 +237,15 @@ video.fit{object-fit:contain}
         <div class="about">
           <h2>About Me</h2>
           <p>안녕하세요! 영남대학교 로봇공학과에서 공부하고 있는 김민상입니다.</p>
-          <p>시간이 날 때면 곡을 씁니다. 곡이 비어 들릴 때 악기를 하나 더 얹을지, 이미 있는 소리를 다듬을지 오래 고민하는 편입니다.</p>
-          <p>로봇을 만들 때도 같은 고민을 합니다. 센서를 더 달기 전에, 지금 들어오는 데이터가 무엇을 말하고 있는지부터 들여다봅니다.</p>        </div>
+          <p>취미로 작곡을 합니다. 곡을 풍성하게 만드는 방법이 악기를 더하는 것만은 아닙니다. 이미 있는 소리의 질감을 다듬거나 배치를 바꾸는 것만으로도 곡은 훨씬 꽉 차게 들립니다.</p>
+          <p>로봇을 만들 때도 비슷한 고민을 합니다. 새로운 센서를 추가하기 전에, 이미 들어오고 있는 데이터가 무엇을 말하는지부터 살펴봅니다. 때로는 새로운 것을 더하기보다 이미 있는 것을 이해하고 조정하는 편이 더 나은 결과를 만든다고 생각합니다.</p>        </div>
       </div>
       <div class="sect-h">Engineering</div>
       <div class="tiles">
-        <a class="tile" href="#humanoid" data-v="humanoid"><span class="ph" aria-hidden="true"><strong>Humanoid AI</strong><em>진행 중</em></span><div><b>Humanoid AI</b><span>sim-to-real, 협업 안전 · 진행 중</span></div></a>
-        <a class="tile" href="#driving" data-v="driving"><img src="media/iroc_stop.jpg" alt="" loading="lazy"><div><b>Autonomous Driving</b><span>IROC 2026 2위 · 모방학습 RC카</span></div></a>
-        <a class="tile" href="#gripper" data-v="gripper"><img src="media/gr_sponge.jpg" alt="" loading="lazy"><div><b>Robotic Gripper</b><span>Physical AI Gripper Challenge 은상</span></div></a>
-        <a class="tile" href="#mobile" data-v="mobile"><img src="media/gn_battle.jpg" alt="" loading="lazy"><div><b>Mobile Robot</b><span>경남 자율로봇 경진대회 최우수상</span></div></a>
+        <a class="tile" href="#driving" data-v="driving"><img src="media/prac_lane3.jpg" alt="" loading="lazy"><div><b>Autonomous Driving</b><span>모방학습 RC카 · IRC 2026 AI 자율주행</span></div></a>
+        <a class="tile" href="#humanoid" data-v="humanoid"><span class="ph" aria-hidden="true"><strong>Humanoid AI</strong><em>진행 중</em></span><div><b>Humanoid AI</b><span>sim-to-real, 협업 안전</span></div></a>
+        <a class="tile" href="#gripper" data-v="gripper"><img src="media/gr_sponge.jpg" alt="" loading="lazy"><div><b>Robotic Gripper</b><span>2025 Physical AI 로봇 그리퍼 챌린지 은상</span></div></a>
+        <a class="tile" href="#mobile" data-v="mobile"><img src="media/gn_battle.jpg" alt="" loading="lazy"><div><b>Mobile Robot</b><span>국립창원대 자율로봇경진대회 최우수상 2관왕</span></div></a>
       </div>
     </section>
 
@@ -254,9 +256,9 @@ video.fit{object-fit:contain}
         <div class="txt">
           <h3 class="btitle">제조 휴머노이드 핵심 AI</h3>
           <div class="card">
-            <p><b>도전 :</b> 제조 현장에서 사람과 함께 일하는 휴머노이드의 핵심 AI 개발</p>
+            <p><b>도전:</b> 제조 현장에서 사람과 함께 일하는 휴머노이드의 핵심 AI 개발</p>
             <p>과학기술정보통신부·IITP AI Star Fellowship(지역 산학 트랙) 과제에서 김성호 교수님 연구실과 함께, 시뮬레이션에서 학습한 동작을 실제 로봇으로 옮기는 일(sim-to-real)과 사람 곁에서 일하는 로봇의 안전을 맡고 있습니다.</p>
-            <p>IROC에서 데이터상으로 맞아 보이던 모델이 실제 트랙에서는 다르게 움직였던 경험이, 지금은 휴머노이드에서 같은 질문으로 이어지고 있습니다.</p>
+            <p>IRC 대회를 준비하며 데이터상으로 맞아 보이던 모델이 실제 트랙에서는 다르게 움직였던 경험이, 지금은 휴머노이드에서 같은 질문으로 이어지고 있습니다.</p>
           </div>
         </div>
       </div>
@@ -264,50 +266,78 @@ video.fit{object-fit:contain}
 
     <!-- DRIVING -->
     <section class="view" id="v-driving" data-view="driving" hidden aria-labelledby="d-t">
-      <div><div class="cat">2026 IROC 국제로봇올림피아드 · 2위</div><h2 class="ttl" id="d-t">Autonomous Driving</h2>
-      <p class="hook">모델은 앞을 보고 멈춘 게 아니었습니다. 직전 스로틀이 0이라서 멈췄습니다.</p></div>
+      <div><div class="cat">2026 IRC 국제로봇올림피아드 AI 자율주행 · 2026.08–11</div><h2 class="ttl" id="d-t">Autonomous Driving</h2>
+      <p class="hook">학습 지표는 정상인데, 한 번 멈추면 다시 출발하지 않던 차. 원인은 모델이 아니라 데이터에 있었습니다.</p></div>
 
       <div class="block">
-        <div class="car" aria-roledescription="carousel" aria-label="SKYNET 주행 영상">
-          <figure data-cap="일반 코스: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/iroc_stop.mp4" poster="media/iroc_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="3차선 코스: 같은 흰 판을 피해서 통과"><video src="media/iroc_avoid.mp4" poster="media/iroc_avoid.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="플래너 뷰어 + 실제 주행: 일반 코스"><video class="fit" src="media/view_stop.mp4" poster="media/view_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="플래너 뷰어 + 실제 주행: 3차선에서 종이컵 S자까지"><video class="fit" src="media/view_avoid_sline.mp4" poster="media/view_avoid_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="트랙 전경"><video src="media/iroc_real.mp4" poster="media/iroc_real.jpg" muted loop playsinline preload="metadata"></video></figure>
+        <div class="car" aria-roledescription="carousel" aria-label="대회장 연습 주행 영상">
+          <figure data-cap="대회장 연습 주행: 3차선 장애물 구간"><video src="media/prac_lane3.mp4" poster="media/prac_lane3.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="대회장 연습 주행: 종이컵 S자 통로"><video src="media/prac_sline.mp4" poster="media/prac_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="대회장 연습 주행: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/prac_stop.mp4" poster="media/prac_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="대회장 연습 주행: 로터리 진입"><video src="media/prac_rotary.mp4" poster="media/prac_rotary.jpg" muted loop playsinline preload="metadata"></video></figure>
         </div>
         <div class="txt">
-          <h3 class="btitle">SKYNET, 같은 장애물 앞의 다른 판단</h3>
+          <h3 class="btitle">SKYNET, 코스마다 다르게 판단하는 모방학습 RC카</h3>
           <div class="card">
-            <p><b>도전 :</b> 같은 장애물을 보고도 코스에 따라 멈추거나 피하는 자율주행 RC카</p>
-            <p>이를 위해 오픈소스 모방학습 플래너(e2e-planner)를 엔코더 없는 JetRacer Pro에 올리고, 카메라 입력에 5섹터 LiDAR를 더했습니다. 제가 직접 운전한 주행 데이터를 코스별로 쌓아, 하나의 모델이 코스마다 다른 판단을 배우게 했습니다.</p>
-            <p><b>결과 :</b> IROC 2026 2위</p>
-            <p class="skills"><b>Skills :</b> PyTorch, Behavior Cloning, Jetson Orin Nano, Intel RealSense, 2D LiDAR, Python</p>
+            <p><b>도전:</b> 로터리, 정지·재출발, 3차선 회피, 종이컵 S자 통로가 이어진 대회 코스를 RC카 한 대로 주행</p>
+            <p>팀원이 만든 모방학습 플래너(ADS-Skynet/e2e-planner)를 fork해 엔코더 없는 JetRacer에 올리고, 카메라 차선 특징에 2D LiDAR 5섹터 입력을 더했습니다. 코스마다 시나리오 토큰을 붙여 데이터를 쌓고, 정지선을 인식하면 시나리오가 바뀝니다.</p>
+            <p><b>결과:</b> 대회장 연습에서 로터리부터 S자 통로까지 한 번에 주행</p>
+            <p class="skills"><b>Skills:</b> PyTorch, Behavior Cloning, Jetson Orin Nano, Intel RealSense, 2D LiDAR, TensorRT, Python</p>
           </div>
         </div>
       </div>
 
       <div class="block rev">
-        <div class="car" aria-roledescription="carousel" aria-label="데이터와 센서 자료">
-          <figure data-cap="라이다 5섹터: 정면 ±10°, 좌우 10~30°, 30~60° 구간별 최소 거리"><video class="fit" src="media/iroc_lidar.mp4" poster="media/iroc_lidar.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="종이컵 S자 통로: 차선이 거의 보이지 않는 구간"><video src="media/iroc_sline.mp4" poster="media/iroc_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="직접 만든 분석 도구로 본 원본 데이터 8,517프레임"><img class="fit" src="media/data_profile.png" alt="코스 5종 원본 데이터의 조향 분포, 라이다 섹터 거리, 차선 채움률, 구성 비율" loading="lazy"></figure>
+        <div class="car" aria-roledescription="carousel" aria-label="시스템 구조도">
+          <figure data-cap="시스템 구조: Jetson에서 인식 → 플래너 → 차량, 데스크톱에서 수집 → 증강 → 학습 → 평가"><img class="fit" src="media/iroc_arch.svg" alt="센싱, 인식, 플래너, 차량과 오프라인 수집·증강·학습·평가 단계를 보여 주는 시스템 구조도" loading="lazy"></figure>
         </div>
         <div class="txt">
-          <h3 class="btitle">한 번 멈추면 다시 출발하지 않는 차</h3>
+          <h3 class="btitle">1. 구조: 픽셀이 아니라 특징을 배우는 플래너</h3>
           <div class="card">
-            <p><b>도전 :</b> 학습 지표는 정상인데, 실제 트랙에서 한 번 멈추면 다시 출발하지 않는 문제</p>
-            <p>이를 위해 모델 구조는 그대로 두고, 데이터가 모델에게 무엇을 가르치고 있는지부터 다시 봤습니다. 정지 라벨을 다시 정의해 짧은 정지 72구간을 주행으로 바꾸고, 스로틀 라벨을 모터가 움직이는 범위로 고정했습니다. 검증은 코스별 주행에서 통합 데이터, 주행 중 시나리오 전환 순서로 넓혔습니다.</p>
-            <p><b>결과 :</b> 대회장에서 재학습 없이 게인 하나로 속도 조정</p>
-            <p class="skills"><b>Skills :</b> 데이터 전처리·증강, pandas, 분석 도구 제작(matplotlib), OpenCV HSV 전처리</p>
+            <p>RealSense 영상은 두 갈래로 나뉩니다. 정지선은 YOLO(TensorRT FP16)가 찾고, 노란 선을 흰색으로 바꾼 영상은 차선 분할을 거쳐 6×12 격자가 됩니다. LiDAR 1,000점은 5섹터 최소 거리로 줄입니다.</p>
+            <p>여기에 직전 조향·스로틀과 시나리오 토큰을 더한 119차원 입력을 MLP(약 15만 파라미터)가 받아 조향과 스로틀을 냅니다. 속도는 라벨이 아니라 코스별 게인으로 곱하므로, 대회장에서 재학습 없이 속도를 맞출 수 있습니다.</p>
           </div>
         </div>
       </div>
-      <p class="contrib"><b>기여 구분</b> 원본: e2e-planner(카메라 기반 모방학습 플래너) · 팀: 정지선 인식 기반 코스 전환 · 본인: 데이터 수집·전처리·증강, LiDAR 확장, HSV 입력 보정, 분석 도구</p>
+
+      <div class="block">
+        <div class="car" aria-roledescription="carousel" aria-label="데이터 수집 자료">
+          <figure data-cap="분석 도구로 본 10월 원본 데이터 8,517프레임(코스 5종)"><img class="fit" src="media/data_profile.png" alt="코스 5종 원본 데이터의 조향 분포, 라이다 섹터 거리, 차선 채움률, 구성 비율" loading="lazy"></figure>
+          <figure data-cap="라이다 5섹터: 구간별 최소 거리"><video class="fit" src="media/iroc_lidar.mp4" poster="media/iroc_lidar.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="실험실 수집 코스: 종이컵 S자 통로"><video src="media/iroc_sline.mp4" poster="media/iroc_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">2. 수집: 3차선과 로터리를 직접 운전해 쌓기</h3>
+          <div class="card">
+            <p>게임패드로 직접 운전하고, 웹 뷰어의 녹화 버튼으로 구간을 잘라 초당 약 9행씩 저장했습니다.</p>
+            <p><b>3차선:</b> 첫 줄 장애물은 항상 오른쪽으로, 둘째 줄은 빈 곳에 따라 작은 좌회전·직진·큰 좌회전으로 피했습니다. 벽 없음, 왼쪽 벽, 기둥으로 배치를 바꿔 가며 중복을 뺀 14,665행을 쌓았습니다.</p>
+            <p><b>로터리:</b> 오른쪽 선을 따라 도는 세션 5개(3,509행)에 선 따라가기 보강 1,200행, 1.4m 앞 장애물 정지·출발 473행을 더했습니다. 세션별 조향을 다시 보고, 스틱을 끊어 누른 세션과 정면 물체를 보고 꺾은 세션을 찾아냈습니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block rev">
+        <div class="car" aria-roledescription="carousel" aria-label="학습 전 처리와 결과 확인">
+          <figure data-cap="스로틀 라벨 처리 전후 비교: 멈춤 위험 34% → 6% (seed 3개, 파일마다 뒤 20% 시험)"><img class="fit" src="media/iroc_throttle.jpg" alt="스로틀 매핑 유무에 따른 멈춤 위험, 정지 성공, 조향 오차와 코스별 멈춤 위험 막대그래프" loading="lazy"></figure>
+          <figure data-cap="플래너 뷰어 + 실험실 주행: 3차선에서 종이컵 S자까지"><video class="fit" src="media/view_avoid_sline.mp4" poster="media/view_avoid_sline.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="실험실: 흰 판 앞에서 정지, 치우면 다시 출발"><video src="media/iroc_stop.mp4" poster="media/iroc_stop.jpg" muted loop playsinline preload="metadata"></video></figure>
+        </div>
+        <div class="txt">
+          <h3 class="btitle">3. 학습 전 처리: 한 번 멈추면 다시 출발하지 않는 차</h3>
+          <div class="card">
+            <p>모델은 직전 스로틀을 입력으로 받습니다. 운전 중 잠깐 멈칫한 순간까지 '정지'로 남아 있자, 모델은 앞을 보는 대신 "직전이 0이면 계속 0"을 배웠습니다.</p>
+            <p>모델 구조는 그대로 두고 라벨을 고쳤습니다. 0이 20프레임 이상 이어질 때만 정지로 남겨 짧은 정지 62구간을 주행으로 바꾸고, 주행 스로틀은 모터가 실제로 움직이는 0.80~0.85로, 출발은 0.95로 맞췄습니다. 증강은 센서 노이즈·드롭아웃·지터로 8배 늘리되, 방향이 정해진 코스는 좌우 반전에서 뺐습니다.</p>
+            <p><b>결과 확인:</b> 같은 데이터·모델·학습 설정에서 라벨 처리만 바꿔 비교했습니다. 주행해야 할 프레임에서 멈춤 값을 내는 비율이 34%에서 6%로 줄었고, 조향 오차 변화는 +0.005에 그쳤습니다. 대신 정지 성공률이 99%에서 72%로 떨어졌는데, 떨어진 것은 전부 S자 코스 끝의 정지 71프레임이었습니다. 그 뒤 코스별 단독 주행 → 통합 데이터 → 주행 중 코스 전환 순서로 실차에서 확인했습니다.</p>
+            <p class="skills"><b>Skills:</b> 데이터 전처리·증강, pandas, 분석 도구 제작(matplotlib), OpenCV HSV 전처리</p>
+          </div>
+        </div>
+      </div>
+      <p class="contrib"><b>기여 구분</b> 원본: 팀원의 e2e-planner(ADS-Skynet) · 팀: 정지선 인식 기반 코스 전환 · 본인: 데이터 수집·전처리·증강, LiDAR 확장, HSV 입력 보정, 분석 도구 · 참고: 대회 코드에서 3차선 구간은 학습 모델 대신 규칙 기반 제어로 주행</p>
     </section>
 
     <!-- GRIPPER -->
     <section class="view" id="v-gripper" data-view="gripper" hidden aria-labelledby="g-t">
-      <div><div class="cat">Physical AI Gripper Challenge · 은상</div><h2 class="ttl" id="g-t">Robotic Gripper</h2></div>
+      <div><div class="cat">2025 Physical AI 로봇 그리퍼 챌린지 · 은상(디지털융합대학장상)</div><h2 class="ttl" id="g-t">Robotic Gripper</h2></div>
       <div class="block">
         <div class="car r43" aria-roledescription="carousel" aria-label="그리퍼 파지 영상">
           <figure data-cap="강체: 1kg 원통형 캔 리프팅"><video src="media/gr_1kg.mp4" poster="media/gr_1kg.jpg" muted loop playsinline preload="metadata"></video></figure>
@@ -315,12 +345,12 @@ video.fit{object-fit:contain}
           <figure data-cap="은상 상장"><img class="fit" src="media/gr_physical.jpg" alt="Physical AI 로봇 그리퍼 챌린지 은상 상장" loading="lazy"></figure>
         </div>
         <div class="txt">
-          <h3 class="btitle">센서 없이 강체와 연성체를 함께 잡기</h3>
+          <h3 class="btitle">외부 촉각 센서 없이 강체와 연성체를 함께 잡기</h3>
           <div class="card">
-            <p><b>도전 :</b> Ø100mm·1kg 원기둥과 스펀지 같은 연성체를 외부 촉각 센서 없이 함께 잡기</p>
-            <p>이를 위해 6축 로봇 엔드이펙터용 랙-피니언 그리퍼를 설계하고, 다이나믹셀의 부하와 위치 값만으로 접촉을 감지해 유지 전류로 넘어가게 했습니다.</p>
-            <p><b>결과 :</b> Physical AI Gripper Challenge 은상 · BOM $150 미만</p>
-            <p class="skills"><b>Skills :</b> SOLIDWORKS, Dynamixel, 전류–위치 제어, 3D 프린팅</p>
+            <p><b>도전:</b> Ø100mm·1kg 원기둥과 스펀지 같은 연성체를 외부 촉각 센서 없이 함께 잡기</p>
+            <p>6축 로봇 엔드이펙터용 랙-피니언 그리퍼를 설계하고, 다이나믹셀의 부하와 위치 값만으로 접촉을 감지해 유지 전류로 넘어가게 했습니다.</p>
+            <p><b>결과:</b> 2025 Physical AI 로봇 그리퍼 챌린지 은상 · BOM $150 미만</p>
+            <p class="skills"><b>Skills:</b> SOLIDWORKS, Dynamixel, 전류–위치 제어, 3D 프린팅</p>
           </div>
         </div>
       </div>
@@ -333,10 +363,10 @@ video.fit{object-fit:contain}
         <div class="txt">
           <h3 class="btitle">FEA로 다시 그린 랙</h3>
           <div class="card">
-            <p><b>도전 :</b> 1kg을 들 때 랙에 몰리는 집중 하중</p>
-            <p>이를 위해 SOLIDWORKS FEA로 응력이 몰리는 부분을 찾아 취약부 두께를 3mm 늘렸고, 해석 결과를 실제 구동 시험과 맞춰 봤습니다.</p>
-            <p><b>결과 :</b> 최대 Von Mises 응력 67% 감소</p>
-            <p class="skills"><b>Skills :</b> SOLIDWORKS Simulation, FEA, 3D 프린팅</p>
+            <p><b>도전:</b> 1kg을 들 때 랙에 몰리는 집중 하중</p>
+            <p>SOLIDWORKS FEA로 응력이 몰리는 부분을 찾아 취약부 두께를 3mm 늘렸고, 해석 결과를 실제 구동 시험과 맞춰 봤습니다.</p>
+            <p><b>결과:</b> 최대 Von Mises 응력 67% 감소</p>
+            <p class="skills"><b>Skills:</b> SOLIDWORKS Simulation, FEA, 3D 프린팅</p>
           </div>
         </div>
       </div>
@@ -344,20 +374,19 @@ video.fit{object-fit:contain}
 
     <!-- MOBILE -->
     <section class="view" id="v-mobile" data-view="mobile" hidden aria-labelledby="m-t">
-      <div><div class="cat">2025 경남 글로벌 혁신 페스타 자율로봇 경진대회 · 국립창원대학교</div><h2 class="ttl" id="m-t">Mobile Robot</h2></div>
+      <div><div class="cat">제28회 2025 국립창원대학교 전국 대학생 자율로봇경진대회 · 최우수상 2개 부문</div><h2 class="ttl" id="m-t">Mobile Robot</h2></div>
       <div class="block">
         <div class="car" aria-roledescription="carousel" aria-label="무한궤도 로봇 영상">
-          <figure data-cap="배틀럼블 경기: 그리퍼로 블록을 밀어내는 무한궤도 로봇"><video src="media/gn_battle.mp4" poster="media/gn_battle.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="ROS 2 연동: 수정한 펌웨어로 그리퍼와 주행을 함께 제어"><video src="media/gn_ros2.mp4" poster="media/gn_ros2.jpg" muted loop playsinline preload="metadata"></video></figure>
-          <figure data-cap="경기장"><img src="media/c_battle.jpg" alt="배틀럼블 경기장" loading="lazy"></figure>
+          <figure data-cap="배틀럼블 경기: 카메라로 블록을 찾아 그리퍼로 집는 무한궤도 로봇"><video src="media/gn_battle.mp4" poster="media/gn_battle.jpg" muted loop playsinline preload="metadata"></video></figure>
+          <figure data-cap="배틀럼블 경기장"><img src="media/c_battle.jpg" alt="배틀럼블 경기장" loading="lazy"></figure>
         </div>
         <div class="txt">
-          <h3 class="btitle">미끄러지는 무한궤도 위의 임무 로봇</h3>
+          <h3 class="btitle">비전으로 블록을 찾아 집어 오는 무한궤도 로봇</h3>
           <div class="card">
-            <p><b>도전 :</b> 무한궤도가 미끄러져도 정확히 달리면서 그리퍼로 임무 수행</p>
-            <p>이를 위해 TurtleBot3 기반 로봇의 펌웨어를 Embedded C와 ROS 2로 다시 짜고, EKF 센서 퓨전으로 슬립 속에서도 위치 추정을 유지했습니다. 쓰지 않던 linear.y 명령에 다이나믹셀 그리퍼를 등록하고 지터 필터를 넣어 토픽 충돌과 모터 손상을 막았습니다.</p>
-            <p><b>결과 :</b> 경상남도지사상 · 제어 루프 50 Hz</p>
-            <p class="skills"><b>Skills :</b> ROS 2, Embedded C, OpenCR, EKF, Dynamixel</p>
+            <p><b>도전:</b> 무한궤도가 미끄러지는 경기장에서 카메라로 블록을 찾아 그리퍼로 집어 오기</p>
+            <p>TurtleBot3 기반 로봇의 OpenCR 펌웨어(Embedded C)와 ROS 2 노드를 수정했습니다. 차동구동이라 쓰이지 않던 /cmd_vel의 linear.y에 다이나믹셀 그리퍼를 등록해 주행과 그리퍼를 한 메시지로 제어하고, 지터 필터로 토픽 충돌과 모터 손상을 막았습니다. 휠 오도메트리와 IMU는 EKF로 융합해 슬립 속 위치 추정을 보완했습니다.</p>
+            <p><b>결과:</b> 임무수행·배틀럼블 부문 최우수상(경상남도지사상) · OpenCR 50 Hz 모터 루프 위에서 주행·그리퍼 통합</p>
+            <p class="skills"><b>Skills:</b> ROS 2, Nav2, Embedded C, OpenCR, EKF, Dynamixel, Intel RealSense</p>
           </div>
         </div>
       </div>
@@ -370,17 +399,16 @@ video.fit{object-fit:contain}
         <div><h3>Education</h3>
           <div class="row"><b>영남대학교 로봇공학과</b><span>GPA 3.75 / 4.5</span></div></div>
         <div><h3>Awards</h3><ul>
-          <li>2026 Physical AI Gripper Challenge 은상</li>
-          <li>2025 경남 글로벌 혁신 페스타 자율로봇 경진대회, 경상남도지사상</li>
-          <li>2025 전공 서포터즈상 3위</li>
-          <li>2026 IROC 국제로봇올림피아드 2위</li></ul></div>
+          <li>2025 제28회 국립창원대학교 전국 대학생 자율로봇경진대회 최우수상(경상남도지사상) · 임무수행·배틀럼블 부문</li>
+          <li>2025 Physical AI 로봇 그리퍼 챌린지 은상(디지털융합대학장상)</li>
+          <li>2025 영남대학교 전공 서포터즈상 3위</li></ul></div>
         <div><h3>Experience</h3><ul>
+          <li><b>SKYNET 모방학습 자율주행</b> · 2026 IRC 국제로봇올림피아드 AI 자율주행 출전 · 데이터 파이프라인·센서 퓨전 · 2026.08–2026.11</li>
           <li><b>제조 휴머노이드 핵심 AI</b> · IITP AI Star Fellowship · sim-to-real, 협업 안전 · 진행 중</li>
-          <li><b>SKYNET 모방학습 자율주행</b> · IROC 2026 2위 · 정지 라벨 재정의, 스로틀 범위 고정, LiDAR 확장</li>
-          <li><b>센서리스 적응형 그리퍼</b> · Subteam Leader · 2025.12–2026.01</li>
-          <li><b>무한궤도 자율로봇</b> · Subteam Member (System Integration &amp; Control) · 2025.09–2025.12</li></ul></div>
+          <li><b>전류 피드백 랙-피니언 그리퍼</b> · Subteam Leader · 2025.12–2026.01</li>
+          <li><b>비전 기반 무한궤도 임무 로봇</b> · Subteam Member (System Integration &amp; Control) · 2025.09–2025.12</li></ul></div>
         <div><h3>Skills</h3><ul>
-          <li>SOLIDWORKS, FEA · C, C++, Python, Arduino, ROS 2 · PyTorch · MATLAB · EKF 센서 퓨전, 전류 제어 · 3D 프린팅</li></ul></div>
+          <li>SOLIDWORKS, FEA · C, C++, Python, Arduino, ROS 2 · PyTorch · MuJoCo, NVIDIA Isaac Sim · MATLAB · EKF 센서 퓨전, 전류 제어 · 3D 프린팅</li></ul></div>
       </div>
     </section>
 
@@ -429,7 +457,7 @@ video.fit{object-fit:contain}
 
   // carousel
   var imgs = document.querySelectorAll('#slides img'), dots = document.getElementById('dots'), cap = document.getElementById('cap');
-  var caps = ['IROC 2026, 3차선 장애물 구간','IROC 2026, 종이컵 S자 통로','Physical AI Gripper, 1kg 캔 파지','경남 자율로봇, 배틀럼블 경기장'];
+  var caps = ['IRC 2026 대회장, 3차선 장애물 구간','IRC 2026 대회장, 종이컵 S자 통로','Physical AI 로봇 그리퍼, 1kg 캔 파지','국립창원대 자율로봇경진대회, 배틀럼블 경기장'];
   var i = 0, timer = null;
   imgs.forEach(function(_, k){ var b = document.createElement('button'); b.type='button'; b.setAttribute('aria-label', (k+1)+'번째 사진'); b.addEventListener('click', function(){ go(k); restart(); }); dots.appendChild(b); });
   function go(k){ i = (k + imgs.length) % imgs.length; imgs.forEach(function(im, n){ im.classList.toggle('on', n===i); }); dots.querySelectorAll('button').forEach(function(b,n){ b.setAttribute('aria-current', n===i ? 'true':'false'); }); cap.textContent = caps[i]; }
@@ -504,6 +532,7 @@ video.fit{object-fit:contain}
       dots.querySelectorAll('button').forEach(function(b, m){ b.setAttribute('aria-current', m === k ? 'true' : 'false'); });
       cap.textContent = items[k].dataset.cap;
     }
+    if (items.length < 2) { prev.hidden = true; next.hidden = true; dots.hidden = true; }
     car._go = function(){ go(k); };
     prev.addEventListener('click', function(){ go(k - 1); });
     next.addEventListener('click', function(){ go(k + 1); });
