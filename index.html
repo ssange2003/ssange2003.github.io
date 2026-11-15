@@ -451,8 +451,10 @@ video.fit{object-fit:contain}
   document.addEventListener('click', function(e){ if(!drop.contains(e.target)) closeDrop(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeDrop(); dbtn.focus(); } });
 
+  var onView = function(){};
   function show(v){
     if(views.indexOf(v) < 0) v = 'home';
+    onView(v);
     document.querySelectorAll('[data-view]').forEach(function(s){
       var on = s.dataset.view === v; s.hidden = !on;
       s.querySelectorAll('video').forEach(function(vd){ if(!on){ vd.pause(); } else if(vd.hasAttribute('autoplay') && !reduce){ var p = vd.play(); if(p&&p.catch) p.catch(function(){}); } });
@@ -556,6 +558,43 @@ video.fit{object-fit:contain}
     tools.firstChild.addEventListener('click', function(){ lbOpen(items, k, tools.firstChild); });
     go(0);
   });
+
+  // video prefetch: posters stay visible; every clip is downloaded once in the
+  // background (current page first) and then plays from memory without stalling
+  (function(){
+    var conn = navigator.connection;
+    if ((conn && conn.saveData) || !window.fetch || !window.URL || location.protocol === 'file:') return;
+    var queue = Array.prototype.slice.call(document.querySelectorAll('video[src]'));
+    var active = 0, LIMIT = 2;
+    function viewOf(v){ var s = v.closest('[data-view]'); return s ? s.dataset.view : ''; }
+    function prioritize(view){
+      queue = queue.filter(function(v){ return viewOf(v) === view; })
+        .concat(queue.filter(function(v){ return viewOf(v) !== view; }));
+    }
+    function isShown(v){ var f = v.closest('figure'); return f && f.classList.contains('on') && !v.closest('[hidden]'); }
+    function swap(v, url){
+      if (!v.paused && v.readyState >= 3) {
+        v.addEventListener('pause', function(){ swap(v, url); }, {once: true});
+        return;
+      }
+      var t = v.paused ? 0 : v.currentTime;
+      v.src = url;
+      if (t) v.currentTime = t;
+      if (isShown(v) && !reduce) { var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+    }
+    function fetchOne(v){
+      active++;
+      fetch(v.getAttribute('src'))
+        .then(function(r){ if (!r.ok) throw new Error(r.status); return r.blob(); })
+        .then(function(b){ swap(v, URL.createObjectURL(b)); })
+        .catch(function(){})
+        .then(function(){ active--; pump(); });
+    }
+    function pump(){ while (active < LIMIT && queue.length) fetchOne(queue.shift()); }
+    onView = prioritize;
+    prioritize((location.hash || '').replace('#', '') || 'home');
+    pump();
+  })();
 
   // copy
   document.querySelectorAll('.copy').forEach(function(b){ b.addEventListener('click', function(){
